@@ -13,9 +13,43 @@ body {
   background-color: #f6fbff;
 }
 
-.hide {
-  display: none;
+.screen {
+  position: absolute;
+  right: 50px;
+  width: 90%;
+  height: 60px;
+  line-height: 60px;
+  background-color: #0c4a7d;
+  border-radius: 10px;
+  text-align: center;
+  color: #fff;
+  font-weight: bold;
+  font-size: 18px;
+  font-family: cairo,Arial;
+  /* display: none; */
 }
+
+.screen a {
+  color: #fff;
+}
+
+.faild {
+  background-color: #fd1d1d;
+}
+.success {
+  background-color: rgb(98, 192, 98);
+}
+
+.screen i {
+  float: right;
+  font-size: 22px;
+  text-align: center;
+  cursor:pointer;
+  margin-right: 5px;
+  margin-top: 5px;
+  color: #fff;
+}
+
 
 /* End Main */
 
@@ -23,19 +57,19 @@ body {
 
 /* Start Acoount type */
 
-.sign-up .account-type {
+.account-type {
   font-family: cairo,Arial, Helvetica, sans-serif;
   text-align: center;
   width: 70%;
   margin: 120px auto;
 }
 
-.sign-up .account-type .head {
+.account-type .head {
   font-size: 25px;
   color: #0c4a7d;
 }
 
-.sign-up .account-type .btn-container .btn {
+.account-type .btn-container .btn {
   display: block;
   margin: 20px auto;
   width: 250px;
@@ -48,10 +82,11 @@ body {
   font-weight: bold;
   cursor: pointer;
   border-radius: 5px;
+  text-decoration: none;
   transition: all .3s;
 }
 
-.sign-up .account-type .btn-container .btn:hover {
+.account-type .btn-container .btn:hover {
   color: #55c0a2;
   background-color: transparent;
   box-shadow: 0px 0px 16px 0px #55c0a2;
@@ -59,7 +94,7 @@ body {
 
 /* Start Patient Sign Up */
 
-.patient-sign-up,.doctor-sign-up {
+.patient-sign-up,.doctor-sign-up,.sign-in{
   width: 70%;
   margin: 20px auto;
   padding: 40px;
@@ -69,13 +104,13 @@ body {
   background-color: #fff;
 }
 
-.patient-sign-up form,.doctor-sign-up form{
+.patient-sign-up form,.doctor-sign-up form,.sign-in form {
   text-align: center;
   width: 350px;
   margin: auto;
 }
 
-.patient-sign-up form label,.doctor-sign-up form label{
+.patient-sign-up form label,.doctor-sign-up form label,.sign-in form label {
   display: block;
   margin: 5px 0;
   font-size: 18px;
@@ -84,7 +119,7 @@ body {
   font-weight: bold;
 }
 
-.patient-sign-up form input,.doctor-sign-up form input {
+.patient-sign-up form input,.doctor-sign-up form input,.sign-in form input {
   width: 100%;
   outline: none;
   height: 35px;
@@ -93,11 +128,11 @@ body {
   font-size: 17px;
   color: #333;
 }
-.patient-sign-up form input::placeholder,.doctor-sign-up form input::placeholder {
+.patient-sign-up form input::placeholder,.doctor-sign-up form input::placeholder,.sign-in form input::placeholder {
   opacity: 1;
   transition: opacity .5s;
 }
-.patient-sign-up form input:focus::placeholder,.doctor-sign-up form input:focus::placeholder {
+.patient-sign-up form input:focus::placeholder,.doctor-sign-up form input:focus::placeholder,.sign-in form input:focus::placeholder {
   opacity: 0;
 }
 
@@ -120,7 +155,7 @@ body {
 
 
 
-.patient-sign-up form input[type="submit"],.doctor-sign-up form input[type="submit"] {
+.patient-sign-up form input[type="submit"],.doctor-sign-up form input[type="submit"],.sign-in form input[type="submit"] {
   font-size: 20px;
   font-family: cairo,arial;height: unset;
   width: 101%;
@@ -135,7 +170,7 @@ body {
   transition: all .3s;
 }
 
-.patient-sign-up form input[type="submit"]:hover,.doctor-sign-up form input[type="submit"]:hover {
+.patient-sign-up form input[type="submit"]:hover,.doctor-sign-up form input[type="submit"]:hover,.sign-in form input[type="submit"]:hover {
   background-color: transparent;
   color: #0c4a7d;
 }
@@ -146,3 +181,30 @@ body {
 
 
 /* End Sign-up */
+
+/* Start Sign Out */
+
+.sign-out {
+
+  padding: 50px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  font-family: cairo,arial;
+  direction: rtl;
+  text-align: center;
+}
+
+.image img {
+  width: 70%;
+  margin-bottom: 20px;
+}
+
+p.text {
+  font-size: 20px;
+  font-weight: bold;
+  user-select: none;
+}
+
+/* End Sign Out */

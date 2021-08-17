@@ -16,7 +16,7 @@
     <li><a href="#">الاطباء</a></li>
     <li><a href="#">من نحن</a></li>
     <li><a href="#">تواصل معنا</a></li>
-    <li><a href="#">حسابي</a></li>
+    <li><a href="my-acount.php">حسابي</a></li>
   </ul>
   <div class="logo">
     <img src="imgs/logo.png" alt="My Doctor Logo">
@@ -31,7 +31,7 @@
     <li><a href="#">الاطباء</a></li>
     <li><a href="#">من نحن</a></li>
     <li><a href="#">تواصل معنا</a></li>
-    <li><a href="#">حسابي</a></li>
+    <li><a href="my-acount.php">حسابي</a></li>
   </ul>
 </div>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>

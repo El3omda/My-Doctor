@@ -1,6 +1,74 @@
 <?php
 
+// Start Connection
 
+require_once 'config.php';
+
+if (isset($_POST['patient'])) {
+  // Get User Inputs
+
+  $UserName = $_POST['UserName'];
+  $UserEmail = $_POST['UserEmail'];
+  $UserPassword = $_POST['UserPassword'];
+  $UserAge = $_POST['UserAge'];
+  $UserGender = $_POST['UserGender'];
+
+  // Get User Country And City From His Ip
+
+  // $clientip = $_SERVER['REMOTE_ADDR'];
+  $clientip = '197.55.94.168';
+  $scrapIp = file_get_contents("https://ipinfo.io/" . $clientip . '/json');
+
+  $ipData = json_decode($scrapIp);
+  $UserCountry = $ipData->country . ',' . $ipData->city;
+
+  // Sql For Insert User Data
+  $sqlIU = "INSERT INTO users (UserName,UserEmail,UserPassword,UserAge,UserGender,UserCountry,Online) VALUES ('$UserName','$UserEmail','$UserPassword','$UserAge','$UserGender','$UserCountry','No')";
+  if (mysqli_query($conn, $sqlIU)) {
+    $msg = 'تم تسجيل الحساب بنجاح اضغط  <a href="sign-in.php">لتسجيل الدخول</a>';
+  } else {
+    $msg = 'لم يتم تسجيل الحساب بنجاح الايمال مستخدم بالفعل';
+  }
+}
+
+
+// Doctor Data
+
+if (isset($_POST['doctor'])) {
+  // Get User Inputs
+
+  $UserName = $_POST['UserName'];
+  $UserEmail = $_POST['UserEmail'];
+  $UserPassword = $_POST['UserPassword'];
+  $UserAge = $_POST['UserAge'];
+  $UserGender = $_POST['UserGender'];
+  $DocPhone = $_POST['DocPhone'];
+  $DocSpec = $_POST['DocSpec'];
+  $DocClinic = $_POST['DocClinic'];
+
+  // Get User Country And City From His Ip
+
+  // $clientip = $_SERVER['REMOTE_ADDR'];
+  $clientip = '197.55.94.168';
+  $scrapIp = file_get_contents("https://ipinfo.io/" . $clientip . '/json');
+
+  $ipData = json_decode($scrapIp);
+  $UserCountry = $ipData->country . ',' . $ipData->city;
+
+  // Sql For Insert User Data
+  $sqlID = "INSERT INTO doctors (DocName,DocEmail,DocPassword,DocPhone,DocGender,DocAge,DocCountry,Online) VALUES ('$UserName','$UserEmail','$UserPassword','$DocPhone','$UserGender','$UserAge','$UserCountry','No')";
+  if (mysqli_query($conn, $sqlID)) {
+    $msg = 'تم تسجيل الحساب بنجاح اضغط  <a href="sign-in.php">لتسجيل الدخول</a>';
+  } else {
+    $msg = 'لم يتم تسجيل الحساب بنجاح الايمال مستخدم بالفعل';
+  }
+}
+
+// echo "<pre>";
+
+// print_r($_POST);
+
+// echo "</pre>";
 
 ?>
 
@@ -27,6 +95,11 @@
 
     <!-- Start Acount Type -->
 
+    <div style="margin-top: -100px;" class="screen">
+      <i class="fa fa-times"></i>
+      <span><?php echo @$msg; ?></span>
+    </div>
+
     <div class="account-type">
       <p class="head">اختار نوع الحساب</p>
       <div class="btn-container">
@@ -41,7 +114,7 @@
 
     <div class="patient-sign-up">
 
-      <form action="" method="POST">
+      <form action="<?php $_SERVER['PHP_SELF']; ?>" method="POST">
 
         <div class="input-feild">
           <label for="UserName">الاسم</label>
@@ -72,7 +145,7 @@
           </select>
         </div>
 
-        <input type="submit" value="تسجيل الحساب">
+        <input type="submit" name="patient" value="تسجيل الحساب">
 
       </form>
 
@@ -128,7 +201,7 @@
           <input name="DocClinic" id="DocClinic" type="text" placeholder="أكتب عنوان عيادتك . . " autocomplete="off" required>
         </div>
 
-        <input type="submit" value="تسجيل الحساب">
+        <input type="submit" name="doctor" value="تسجيل الحساب">
 
       </form>
 
@@ -161,6 +234,24 @@
     btndoctor.onclick = function() {
       accountType.style.display = "none";
       doctor.style.display = "block";
+    }
+
+    var screen = document.querySelector('.screen');
+    var screenSpan = document.querySelector('.screen span');
+    var screenClose = document.querySelector('.screen i');
+
+    if (screenSpan.innerHTML == "لم يتم تسجيل الحساب بنجاح الايمال مستخدم بالفعل") {
+      screen.classList.add('faild');
+      screen.style.display = 'block';
+    } else if (screenSpan.innerHTML == "تم تسجيل الحساب بنجاح اضغط  <a href=\"sign-in.php\">لتسجيل الدخول</a>") {
+      screen.classList.add('success');
+      screen.style.display = 'block';
+    } else {
+      screen.style.display = 'none';
+    }
+
+    screenClose.onclick = function() {
+      screen.style.display = 'none';
     }
   </script>
 </body>
