@@ -1,0 +1,148 @@
+/* Start Main */
+
+@font-face {
+  font-family: cairo;
+  src: url(../fonts/Cairo-Regular.ttf);
+}
+
+* {
+  padding: 0;
+  margin: 0;
+}
+body {
+  background-color: #f6fbff;
+}
+
+.hide {
+  display: none;
+}
+
+/* End Main */
+
+/* Start Sign-up */
+
+/* Start Acoount type */
+
+.sign-up .account-type {
+  font-family: cairo,Arial, Helvetica, sans-serif;
+  text-align: center;
+  width: 70%;
+  margin: 120px auto;
+}
+
+.sign-up .account-type .head {
+  font-size: 25px;
+  color: #0c4a7d;
+}
+
+.sign-up .account-type .btn-container .btn {
+  display: block;
+  margin: 20px auto;
+  width: 250px;
+  padding: 10px 0;
+  font-size: 20px;
+  font-family: cairo,Arial;
+  border: 1px solid #55c0a2;
+  background-color: #55c0a2;
+  color: #fff;
+  font-weight: bold;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: all .3s;
+}
+
+.sign-up .account-type .btn-container .btn:hover {
+  color: #55c0a2;
+  background-color: transparent;
+  box-shadow: 0px 0px 16px 0px #55c0a2;
+}
+
+/* Start Patient Sign Up */
+
+.patient-sign-up,.doctor-sign-up {
+  width: 70%;
+  margin: 20px auto;
+  padding: 40px;
+  direction: rtl;
+  border: 1px solid #CCC;
+  border-radius: 5px;
+  background-color: #fff;
+}
+
+.patient-sign-up form,.doctor-sign-up form{
+  text-align: center;
+  width: 350px;
+  margin: auto;
+}
+
+.patient-sign-up form label,.doctor-sign-up form label{
+  display: block;
+  margin: 5px 0;
+  font-size: 18px;
+  font-family: cairo,Arial;
+  color: #0c4a7d;
+  font-weight: bold;
+}
+
+.patient-sign-up form input,.doctor-sign-up form input {
+  width: 100%;
+  outline: none;
+  height: 35px;
+  text-align: center;
+  font-family: cairo,arial;
+  font-size: 17px;
+  color: #333;
+}
+.patient-sign-up form input::placeholder,.doctor-sign-up form input::placeholder {
+  opacity: 1;
+  transition: opacity .5s;
+}
+.patient-sign-up form input:focus::placeholder,.doctor-sign-up form input:focus::placeholder {
+  opacity: 0;
+}
+
+.patient-sign-up form select,.doctor-sign-up form select {
+  height: 35px;
+  outline: none;
+  cursor: pointer;
+  width: 101%;
+  text-align: center;
+  font-family: cairo,arial;
+  font-size: 17px;
+  color: #333;
+}
+.patient-sign-up form option,.doctor-sign-up form option {
+  font-size: 20px;
+  font-family: cairo,arial;
+  text-align: center;
+
+}
+
+
+
+.patient-sign-up form input[type="submit"],.doctor-sign-up form input[type="submit"] {
+  font-size: 20px;
+  font-family: cairo,arial;height: unset;
+  width: 101%;
+  border: 1px solid #0c4a7d;
+  background-color: #0c4a7d;
+  color: #fff;
+  font-weight: bold;
+  margin-top: 20px;
+  padding: 2px 0;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: all .3s;
+}
+
+.patient-sign-up form input[type="submit"]:hover,.doctor-sign-up form input[type="submit"]:hover {
+  background-color: transparent;
+  color: #0c4a7d;
+}
+
+/* End Patient Sign Up */
+
+/* End Acoount type */
+
+
+/* End Sign-up */
