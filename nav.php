@@ -14,7 +14,7 @@
   <ul>
     <li><a href="#">خدماتنا</a></li>
     <li><a href="#">الاطباء</a></li>
-    <li><a href="#">من نحن</a></li>
+    <li><a href="about-us.php">من نحن</a></li>
     <li><a href="#">تواصل معنا</a></li>
     <li><a href="my-acount.php">حسابي</a></li>
   </ul>
