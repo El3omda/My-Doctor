@@ -20,7 +20,7 @@ if (isset($_POST['patient'])) {
   $scrapIp = file_get_contents("https://ipinfo.io/" . $clientip . '/json');
 
   $ipData = json_decode($scrapIp);
-  $UserCountry = $ipData->country . ',' . $ipData->city;
+  $UserCountry = $ipData->city;
 
   // Sql For Insert User Data
   $sqlIU = "INSERT INTO users (UserName,UserEmail,UserPassword,UserAge,UserGender,UserCountry,Online) VALUES ('$UserName','$UserEmail','$UserPassword','$UserAge','$UserGender','$UserCountry','No')";
@@ -53,7 +53,7 @@ if (isset($_POST['doctor'])) {
   $scrapIp = file_get_contents("https://ipinfo.io/" . $clientip . '/json');
 
   $ipData = json_decode($scrapIp);
-  $UserCountry = $ipData->country . ',' . $ipData->city;
+  $UserCountry = $ipData->city;
 
   // Sql For Insert User Data
   $sqlID = "INSERT INTO doctors (DocName,DocEmail,DocPassword,DocPhone,DocGender,DocAge,DocCountry,Online) VALUES ('$UserName','$UserEmail','$UserPassword','$DocPhone','$UserGender','$UserAge','$UserCountry','No')";

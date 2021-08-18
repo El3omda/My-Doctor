@@ -13,6 +13,10 @@ if (isset($_SESSION['UserEmail'])) {
   header("Location:dashboard.php");
 }
 
+if (isset($_SESSION['DocEmail'])) {
+  header("Location:dashboard.php");
+}
+
 // Patient Sign In
 
 if (isset($_POST['submit'])) {
@@ -32,7 +36,12 @@ if (isset($_POST['submit'])) {
     $_SESSION['UserEmail'] = $rowCD['UserEmail'];
     $_SESSION['UserName'] = $rowCD['UserName'];
     $_SESSION['ID'] = $rowCD['ID'];
-    $_SESSION['AcountType'] = 'Patient';
+
+    if ($_SESSION['UserEmail'] == 'admin@admin.com') {
+      $_SESSION['AcountType'] = 'Admin';
+    } else {
+      $_SESSION['AcountType'] = 'Patient';
+    }
 
     // Change Online Status
 
@@ -64,16 +73,7 @@ if (isset($_POST['submit'])) {
   }
 }
 
-// Doctor Sign In
 
-if (isset($_POST['submit'])) {
-  // Sql For Check Login Datails
-
-  # Get User Entered Data
-
-  $UserEmail = $_POST['UserEmail'];
-  $UserPassword = $_POST['UserPassword'];
-}
 // echo "<pre> session";
 // print_r($_SESSION);
 // echo "</pre>";

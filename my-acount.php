@@ -1,5 +1,14 @@
 <?php
 
+session_start();
+
+if (isset($_SESSION['UserEmail']) or isset($_SESSION['DocEmail'])) {
+  header("Location:dashboard.php");
+}
+
+// echo "<pre>";
+// print_r($_SESSION);
+// echo "</pre>";
 
 ?>
 

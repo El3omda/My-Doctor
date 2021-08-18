@@ -1,0 +1,597 @@
+/* Strat Main */
+
+@font-face {
+  font-family: cairo;
+  src: url(../fonts/Cairo-Regular.ttf);
+}
+
+* {
+  padding: 0;
+  margin: 0;
+}
+.screen {
+  position: absolute;
+  right: 50px;
+  top: 50px;
+  width: 90%;
+  height: 60px;
+  line-height: 60px;
+  background-color: #0c4a7d;
+  border-radius: 10px;
+  text-align: center;
+  color: #fff;
+  font-weight: bold;
+  font-size: 18px;
+  font-family: cairo,Arial;
+  /* display: none; */
+}
+
+.screen a {
+  color: #fff;
+}
+
+.faild {
+  background-color: #fd1d1d;
+}
+.success {
+  background-color: rgb(98, 192, 98);
+}
+
+.screen i {
+  float: right;
+  font-size: 22px;
+  text-align: center;
+  cursor:pointer;
+  margin-right: 5px;
+  margin-top: 5px;
+  color: #fff;
+}
+
+
+/* End Main */
+
+/* Start Main Nav */
+
+nav {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  font-family: cairo,Arial, Helvetica, sans-serif;
+  width: 200px;
+  background-color: #f6fbff;
+  user-select: none;
+}
+
+.main-nav-cont {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 200px;
+}
+
+nav .logo {
+  width: 200px;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+nav .logo img {
+  width: 90%;
+}
+
+nav ul {
+  list-style: none;
+}
+
+nav ul li {
+  width: 90%;
+  margin-bottom: 20px;
+  margin-left: 20px;
+}
+
+nav ul li a {
+  display: inline-block;
+  text-decoration: none;
+  border: 1px solid #0c4a7d;
+  border-right: none;
+  width: 100%;
+  text-align: center;
+  padding: 5px 0;
+  border-top-left-radius: 20px;
+  border-bottom-left-radius: 20px;
+  background-color: transparent;
+  color: #0c4a7d;
+  font-weight: bold;
+  transition: all .3s;
+}
+
+nav ul li a:hover{
+  background-color: #0c4a7d;
+  color: #fff;
+}
+
+nav ul li {
+  border-top-left-radius: 20px;
+  border-bottom-left-radius: 20px;
+}
+
+nav ul li.active {
+  background-color: #0c4a7d;
+  color: #fff;
+}
+
+nav ul li.active a {
+  background-color: #0c4a7d;
+  color: #fff;
+}
+
+/* End Main Nav */
+
+/* Start Main Content */
+
+.main-content {
+  margin-left: 200px;
+  background-color: #0c4a7d;
+  color: #fff;
+  min-height: 100vh;
+  padding-bottom: 50px;
+  font-family: cairo,Arial;
+  overflow: hidden;
+}
+
+.header {
+  padding: 10px 20px;
+  background-color: #55c0a2;
+  font-weight: bold;
+  direction: rtl;
+  overflow: hidden;
+}
+
+.header .name {
+  float: right;
+}
+
+.header .date {
+  float: left;
+}
+
+/* Start Statics */
+
+.statics {
+  width: 100%;
+  height: 100%;
+  display: none;
+}
+
+.statics .box {
+  width: calc(100% / 3);
+  padding: 30px;
+  margin: 20px;
+  background-color: #fff;
+  color: #0c4a7d;
+  font-weight: bold;
+  font-size: 20px;
+  border-radius: 10px;
+  border-left: 5px solid #55c0a2;
+  overflow: hidden;
+  user-select: none;
+  float: left;
+} 
+
+.statics .box p:first-of-type {
+  float: left;
+  width: 45%;
+}
+
+.statics .box p:first-of-type i {
+  text-align: center;
+  line-height: 75px;
+}
+
+.seperator {
+  width: 2px;
+  height: 80px;
+  background-color: #55c0a2;
+  float: left;
+  margin: 0 10px;
+}
+
+.statics .box .info {
+  text-align: center;
+  line-height: 40px;
+}
+.statics .box .number {
+  text-align: center;
+}
+
+.statics .contact .number {
+  font-size: 12px;
+}
+
+
+/* End Statics */
+
+/* Start Offers */
+.offers {
+  display: none;
+}
+
+.offers .head {
+  text-align: center;
+  padding: 10px 0;
+  font-weight: bold;
+  overflow: hidden;
+}
+
+.offers .box {
+  width: 45%;
+  margin: 20px;
+  float: left;
+  background-color: #fff;
+  color: #0c4a7d;
+  border-radius: 15px;
+  direction: rtl;
+}
+
+.offers .box .image {
+  width: 100%;
+  height: 200px;
+  border-radius: 15px;
+}
+
+.offers .box .image img {
+  border-top-right-radius: 15px;
+  border-top-left-radius: 15px;
+  width: 100%;
+  height: 200px;
+}
+
+.offers .box .info {
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+.offers .box .info .datails {
+  width: 80%;
+  float: right;
+  padding: 10px;
+}
+
+.offers .box .info .datails .name {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.offers .box .info .datails .price {
+  font-weight: bold;
+}
+
+.offers .box .info .datails .price .new {
+  color: #55c0a2;
+}
+
+.offers .box .info .datails .price .old {
+  color: rgb(236, 45, 45);
+  text-decoration: line-through;
+}
+
+.offers .box .info .show-more a {
+  color: #fff;
+  font-size: 30px;
+  display: block;
+  width: 100%;
+  height: 100%;
+  border-radius: 5px;
+  margin-top: 8px;
+  border-radius: 5px;
+  margin-left: 10px;
+  padding: 5px;
+  text-align: center;
+  float: left;
+  background-color: #0c4a7d;
+  width: 8%;
+  transition: all .3s;
+  border: 1px solid #0c4a7d;
+}
+
+.offers .box .info .show-more a:hover {
+  background-color: transparent;
+  color: #0c4a7d;
+  border: 1px solid #0c4a7d;
+}
+
+/* End Offers */
+
+/* Start Booking */
+
+.booking,.question {
+  display: none;
+  margin: 20px;
+  background-color: #fff;
+  color: #0c4a7d;
+  padding: 50px;
+  border-radius: 5px;
+}
+.booking table,.question table {
+  width: 100%;
+  direction: rtl;
+}
+.booking table td ,
+.booking table th ,
+.question table td ,
+.question table th {
+  border: 1px solid #55c0a2;
+  text-align: center;
+} 
+.deletDoc {
+  direction: rtl;
+  text-align: center;
+
+}
+.deletDoc input {
+  width: 50%;
+  height: 35px;
+  outline: none;
+  font-size: 20px;
+  border: 1px solid #55c0a2;
+  border-radius: 5px;
+  text-align: center;
+
+}
+.deletDoc input::placeholder {
+  opacity: 1;
+  transition: all .5s;
+  font-family: cairo ,arial;
+}
+.deletDoc input:focus::placeholder {
+  opacity: 0;
+}
+.deletDoc input[type="submit"] {
+  font-size: 18px;
+  background-color: #55c0a2;
+  border: 1px solid #55c0a2;
+  display: block;
+  border-radius: 5px;
+  font-family: cairo,arial;
+  transition: all .3s;
+  color: #fff;
+  font-weight: bold;
+  margin: 10px auto;
+  cursor: pointer;
+
+}
+.deletDoc input[type="submit"]:hover {
+  background-color: transparent;
+  color: #55c0a2;
+}
+
+.booking .head,.question .head {
+  text-align: center;
+  font-size: 20px;
+  font-weight: bold;
+  padding: 20px 0;
+  position: relative;
+}
+.booking .head:after,.question .head:after {
+  content: "";
+  width: 50px;
+  height: 4px;
+  position: absolute;
+  bottom: 0;
+  right: 46%;
+  /* transform: translateX(-50%); */
+  background-color: #55c0a2;
+}
+
+.booking .doctor-filter,.question .doctor-filter {
+  direction: rtl;
+  overflow: hidden;
+  background-color: #f6fbff;
+  padding: 50px 10px;
+  margin-top: 20px;
+  border-radius: 5px;
+}
+
+.booking .doctor-filter div:first-of-type,.question .doctor-filter div:first-of-type{
+  width: 25%;
+  float: right;
+}
+.booking .doctor-filter div:nth-of-type(2),.question .doctor-filter div:nth-of-type(2) {
+  width: 25%;
+  float: right;
+  margin-right: 20px;
+}
+.booking .doctor-filter div:nth-of-type(3),.question .doctor-filter div:nth-of-type(3) {
+  width: 25%;
+  float: right;
+  margin-right: 20px;
+}
+.booking .doctor-filter div:nth-of-type(4),.question .doctor-filter div:nth-of-type(4) {
+  width: 15%;
+  float: right;
+  margin-right: 20px;
+}
+
+.booking .doctor-filter div input:not(input[type="submit"]),.question .doctor-filter div input:not(input[type="submit"]) {
+  border-radius: 5px;
+  transition: all .3s;
+}
+
+.booking .doctor-filter div input:not(input[type="submit"]):focus,.question .doctor-filter div input:not(input[type="submit"]):focus {
+  border: 1px solid #55c0a2;
+}
+
+.booking .doctor-filter div:nth-of-type(4) input,.question .doctor-filter div:nth-of-type(4) input {
+  margin-top: 30px;
+  width: 100%;
+  cursor: pointer;
+  background-color: #55c0a2;
+  color: #fff;
+  font-size: 18px;
+  font-family: cairo,arial;
+  font-weight: bold;
+  border: 1px solid #55c0a2;
+  border-radius: 5px;
+  transition: all .3s;
+}
+.booking .doctor-filter div:nth-of-type(4) input:hover,.question .doctor-filter div:nth-of-type(4) input:hover {
+  background-color: transparent;
+  color: #55c0a2;
+}
+
+.booking .doctor-filter input,.question .doctor-filter input {
+  height: 35px;
+  outline: none;
+  border: 1px solid #0c4a7d;
+}
+
+.doc-result {
+  overflow: hidden;
+  margin-top: 20px;
+}
+
+.booking .box,.question .box {
+  width: calc((100% / 3) - 40px);
+  float: right;
+  background-color: #f6fbff;
+  padding: 10px;
+  border-radius: 5px;
+  direction: rtl;
+  margin-right: 20px;
+}
+
+.booking .box img,.question .box img {
+  width: 100%;
+  height: 200px;
+  border-radius: 5px;
+}
+.booking .box .spe,.question .box .spe {
+  font-size: 14px;
+}
+.booking .box .place,.question .box .place {
+  font-size: 15px;
+}
+
+.booking .box .btn a,.question .box .btn a {
+  display: block;
+  direction: ltr;
+  background-color: #55c0a2;
+  color: #fff;
+  padding: 5px 0;
+  text-align: center;
+  text-decoration: none;
+  font-size: 18px;
+  font-weight: bold;
+  transition: all .3s;
+  border: 1px solid #55c0a2;
+  border-radius: 5px;
+  margin-top: 10px;
+}
+
+.booking .box .btn a:hover,.question .box .btn a:hover {
+  background-color: transparent;
+  color: #55c0a2;
+}
+
+.booking .box .btn a i,.question .box .btn a i {
+  font-size: 20px;
+  margin-right: 5px;
+}
+
+/* End Booking */
+
+/* Start Edit */
+
+.edit {
+  margin: 20px;
+  padding: 50px;
+  height: 100%;
+  display: none;
+}
+
+.edit-box {
+  width: 70%;
+  margin: auto;
+  padding: 40px;
+  direction: rtl;
+  border: 1px solid #CCC;
+  border-radius: 5px;
+  background-color: #fff;
+}
+
+.edit-box form {
+  text-align: center;
+  width: 350px;
+  margin: auto;
+}
+
+.edit-box form label {
+  display: block;
+  margin: 5px 0;
+  font-size: 18px;
+  font-family: cairo,Arial;
+  color: #0c4a7d;
+  font-weight: bold;
+}
+
+.edit-box form input {
+  width: 100%;
+  outline: none;
+  height: 35px;
+  text-align: center;
+  font-family: cairo,arial;
+  font-size: 17px;
+  color: #333;
+}
+.edit-box form input::placeholder {
+  opacity: 1;
+  transition: opacity .5s;
+}
+.edit-box form input:focus::placeholder {
+  opacity: 0;
+}
+
+.edit-box form select {
+  height: 35px;
+  outline: none;
+  cursor: pointer;
+  width: 101%;
+  text-align: center;
+  font-family: cairo,arial;
+  font-size: 17px;
+  color: #333;
+}
+.edit-box form option {
+  font-size: 20px;
+  font-family: cairo,arial;
+  text-align: center;
+
+}
+
+
+
+.edit-box form input[type="submit"] {
+  font-size: 20px;
+  font-family: cairo,arial;height: unset;
+  width: 101%;
+  border: 1px solid #0c4a7d;
+  background-color: #0c4a7d;
+  color: #fff;
+  font-weight: bold;
+  margin-top: 20px;
+  padding: 2px 0;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: all .3s;
+}
+
+.edit-box form input[type="submit"]:hover {
+  background-color: transparent;
+  color: #0c4a7d;
+}
+
+
+/* End Edit */
+
+/* End Main Content */
