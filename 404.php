@@ -1,6 +1,6 @@
 <?php
 
-header("Refresh:3;url=index.php");
+header("Refresh:3;url=sign-in.php");
 
 ?>
 <!DOCTYPE html>
