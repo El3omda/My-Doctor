@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 18, 2021 at 08:26 PM
+-- Generation Time: Aug 19, 2021 at 08:35 PM
 -- Server version: 10.4.19-MariaDB
 -- PHP Version: 7.3.28
 
@@ -39,16 +39,17 @@ CREATE TABLE `doctors` (
   `DocClinic` varchar(300) NOT NULL,
   `DocCountry` varchar(100) NOT NULL,
   `DocImageSrc` text NOT NULL,
-  `Online` varchar(5) NOT NULL
+  `Online` varchar(5) NOT NULL,
+  `RegDate` date NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `doctors`
 --
 
-INSERT INTO `doctors` (`ID`, `DocName`, `DocEmail`, `DocPassword`, `DocPhone`, `DocGender`, `DocAge`, `DocSpec`, `DocClinic`, `DocCountry`, `DocImageSrc`, `Online`) VALUES
-(6, 'محمد النكلاوي', 'dr1@1.com', '123', '1254663', 'Male', 45, 'اخصائي باطنة', 'الزوايدة نمرة 2 عمارة قهوة السلطنة', 'Alexandria', 'imgs/doc/d1.jpg', 'No'),
-(7, 'سارة عبدالسلام', 'dr2@1.com', '123', '25456423', 'Female', 27, 'الاسنان', 'المعمورة شارع 5 اما مسجد القيامة عمارة 7 شقة 3', 'Alexandria', 'imgs/doc/d3.jpg', 'No');
+INSERT INTO `doctors` (`ID`, `DocName`, `DocEmail`, `DocPassword`, `DocPhone`, `DocGender`, `DocAge`, `DocSpec`, `DocClinic`, `DocCountry`, `DocImageSrc`, `Online`, `RegDate`) VALUES
+(6, 'محمد النكلاوي', 'dr1@1.com', '123', '1254663', 'male', 47, 'اخصائي باطنة', 'الزوايدة نمرة 2 عمارة قهوة السلطنة', 'Alexandria', 'imgs/doc/d1.jpg', 'No', '2021-08-19'),
+(7, 'سارة عبدالسلام', 'dr2@1.com', '123', '25456423', 'Female', 27, 'الاسنان', 'المعمورة شارع 5 اما مسجد القيامة عمارة 7 شقة 3', 'Alexandria', 'imgs/doc/d3.jpg', 'No', '2021-08-19');
 
 -- --------------------------------------------------------
 
@@ -75,6 +76,54 @@ CREATE TABLE `offers` (
 INSERT INTO `offers` (`ID`, `OffName`, `OffOPrice`, `OffNPrice`, `GeoLocation`, `OffClinicAddress`, `OffDetails`, `OffAvaliable`, `OffImageSrc`) VALUES
 (1, 'تبيض اسنان', '50', '40', 'Alexandria', 'الاسكندرية العجمي شارع 4 امام مسجد النور\r\nعمارة 105 الدور الاول اول شقة شمال', 'تبيض الاسنان و ازالة الرواسب حتي تعود الاسنان جديد و لامعة', 'Yes', 'imgs/offers/dentist.jpg'),
 (2, 'تجميل الانف', '5500', '4000', 'Alexandria', 'الاسكندرية العوايد شارع 8 عزبة محسن امام قهوة النصر\r\nعمارة 9 الدور التالت علوى شقة رقم 5', 'تجميل الانف و ازاله العيوب\r\nبالاليزر', 'Yes', 'imgs/offers/beaty.jpg');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `orders`
+--
+
+CREATE TABLE `orders` (
+  `ID` int(10) NOT NULL,
+  `DocName` varchar(200) NOT NULL,
+  `DocSpec` varchar(200) NOT NULL,
+  `PatientName` varchar(200) NOT NULL,
+  `PatientEmail` varchar(100) NOT NULL,
+  `PatientPhone` varchar(25) NOT NULL,
+  `WantDate` varchar(50) NOT NULL,
+  `DateCreated` date NOT NULL DEFAULT current_timestamp(),
+  `Aproved` varchar(5) NOT NULL DEFAULT 'No'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `orders`
+--
+
+INSERT INTO `orders` (`ID`, `DocName`, `DocSpec`, `PatientName`, `PatientEmail`, `PatientPhone`, `WantDate`, `DateCreated`, `Aproved`) VALUES
+(1, 'محمد النكلاوي', '', 'عماد عثمان', 'emad@gmail.com', '01202716895', '25/8/2021', '2021-08-19', 'Yes');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `questions`
+--
+
+CREATE TABLE `questions` (
+  `ID` int(10) NOT NULL,
+  `Question` varchar(800) NOT NULL,
+  `SendFrom` varchar(200) NOT NULL,
+  `SendTo` varchar(200) NOT NULL,
+  `Answer` varchar(800) NOT NULL DEFAULT 'لم يتم الرد بعد',
+  `AdditionalData` varchar(800) NOT NULL,
+  `DateCreated` datetime NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `questions`
+--
+
+INSERT INTO `questions` (`ID`, `Question`, `SendFrom`, `SendTo`, `Answer`, `AdditionalData`, `DateCreated`) VALUES
+(1, 'السلام عليكم يا دكتور محمد عندي الم في بطني شديد ', 'عماد عثمان', 'محمد النكلاوي', 'خد حباية دواء  -_-', 'الحرارة مرتفعة', '2021-08-19 16:44:20');
 
 -- --------------------------------------------------------
 
@@ -123,6 +172,18 @@ ALTER TABLE `offers`
   ADD PRIMARY KEY (`ID`);
 
 --
+-- Indexes for table `orders`
+--
+ALTER TABLE `orders`
+  ADD PRIMARY KEY (`ID`);
+
+--
+-- Indexes for table `questions`
+--
+ALTER TABLE `questions`
+  ADD PRIMARY KEY (`ID`);
+
+--
 -- Indexes for table `users`
 --
 ALTER TABLE `users`
@@ -144,6 +205,18 @@ ALTER TABLE `doctors`
 --
 ALTER TABLE `offers`
   MODIFY `ID` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `orders`
+--
+ALTER TABLE `orders`
+  MODIFY `ID` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `questions`
+--
+ALTER TABLE `questions`
+  MODIFY `ID` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `users`

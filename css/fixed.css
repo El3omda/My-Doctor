@@ -361,3 +361,61 @@ footer .follow ul li i:hover {
   }
 }
 /* End Footer */
+
+/* Replay */
+
+.cont-box {
+  width: 70%;
+  padding: 50px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  font-family: cairo, arial;
+  background-color: #0c4a7d;
+  border-radius: 5px;
+}
+
+
+.cont-box form textarea {
+  display: block;
+  margin: 20px auto;
+  direction: rtl;
+  text-align: center;
+  width: 100%;
+  height: 150px;
+  resize: none;
+  font-size: 20px;
+  border-radius: 10px;
+  padding-top: 5px;
+  font-family: cairo,arial;
+  border: 1px solid #55c0a2;
+  outline: none;
+}
+.cont-box  .question {
+  text-align: center;
+  font-weight: bold;
+  font-size: 18px;
+  padding: 10px;
+  margin: 10px;
+  color: #fff;
+}
+.cont-box form input {
+  width: 100%;
+  border-radius: 10px;
+  font-size: 20px;
+  border: 1px solid #55c0a2;
+  padding: 10px;
+  background-color: #55c0a2;
+  color: #fff;
+  font-weight: bold;
+  font-family: cairo,arial;
+  cursor: pointer;
+  transition: all .3s;
+  outline: none;
+}
+.cont-box form input:hover {
+  background-color: #fff;
+  color: #55c0a2;
+}

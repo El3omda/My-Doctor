@@ -61,6 +61,7 @@ nav {
   width: 200px;
   background-color: #f6fbff;
   user-select: none;
+  transition: all .5s;
 }
 
 .main-nav-cont {
@@ -124,6 +125,28 @@ nav ul li.active {
 nav ul li.active a {
   background-color: #0c4a7d;
   color: #fff;
+}
+
+.sd-nav {
+  position: absolute;
+  right: -20px;
+  width: 50px;
+  height: 50px;
+  text-align: center;
+  line-height: 50px;
+  font-size: 30px;
+  color: #fff;
+  background-color: #55c0a2;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: all .3s;
+  border: 1px solid #55c0a2;
+  display: none;
+}
+
+.sd-nav:hover {
+  background-color: #FFF;
+  color: #55c0a2;
 }
 
 /* End Main Nav */
@@ -365,7 +388,16 @@ nav ul li.active a {
   background-color: transparent;
   color: #55c0a2;
 }
-
+.bt {
+  width: 100%;
+  margin: 20px auto 0;
+  direction: rtl;
+  text-align: center;
+}
+.bt td,.bt th {
+  border: 1px solid #55c0a2;
+  padding: 5px;
+}
 .booking .head,.question .head {
   text-align: center;
   font-size: 20px;
@@ -593,5 +625,81 @@ nav ul li.active a {
 
 
 /* End Edit */
+
+/* Start Media Queries */
+
+.slide-left {
+  margin-left: -205px;
+}
+
+.fix-left {
+  margin-left:0;
+}
+
+.bg-color {
+  background-color: #fff;
+  color: #55c0a2;
+}
+
+@media (max-width:850px) {
+  .statics .box {
+    width: calc(88% / 3);
+  }
+  .statics .box .info {
+    line-height: 24px;
+    font-size: 14px !important;
+  }
+  .statics .box .number {
+    font-size: 15px;
+  }
+  .sd-nav {
+    display: block;
+  }
+  .edit-box form {
+    width: unset;
+  }
+}
+
+@media (max-width:725px) {
+  .statics .box {
+    width:calc(100% - 100px);
+  }
+}
+@media (max-width:300px) {
+  .statics .box {
+    font-size: 14px;
+  }
+  .statics .box p:first-of-type {
+    margin: auto;
+    width: 50%;
+    float: none;
+    text-align: center;
+  }
+  .seperator {
+    display: none;
+  }
+  
+}
+@media (max-width:400px) {
+  .edit-box {
+    width: unset;
+  }
+  .booking, .question {
+    padding: 10px;
+  }
+}
+@media (max-width:620px) {
+  .offers {
+    overflow-x: scroll;
+  }
+  .booking {
+    overflow-x: scroll;
+  }
+}
+@media (max-width:290px) {
+  .edit-box {
+    padding: 10px;
+  }
+}
 
 /* End Main Content */

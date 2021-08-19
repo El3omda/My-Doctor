@@ -12,7 +12,11 @@ require_once 'config.php';
 
 // If User Is Patient
 
-$UserEmail = $_SESSION['UserEmail'];
+if ($_SESSION['AcountType'] == 'Patient' || $_SESSION['AcountType'] == 'Admin') {
+  $UserEmail = $_SESSION['UserEmail'];
+} else {
+  $UserEmail = $_SESSION['DocEmail'];
+}
 
 if ($_SESSION['AcountType'] == 'Patient' || $_SESSION['AcountType'] == 'Admin') {
   // Get User Data 
@@ -94,11 +98,13 @@ if ($_SESSION['AcountType'] == 'Patient' || $_SESSION['AcountType'] == 'Admin') 
     @$UserAge = $_POST['UserAge'];
     @$UserGender = $_POST['UserGender'];
     @$UserEmailCh = $_SESSION['UserEmail'];
-    @$sqlUP = "UPDATE users SET UserName = '$UserName', UserEmail = '$UserEmail',UserPassword = '$UserPassword',UserAge = '$UserAge',UserGender = '$UserGender' WHERE UserEmail = '$UserEmailCh'";
+    @$sqlUP = "UPDATE users SET UserName = '$UserName', UserEmail = '$UserEmail',UserPassword = '$UserPassword',UserAge = '$UserAge',UserGender = '$UserGender' WHERE UserEmail = '$UserEmailCh' WHERE DocName = '$DocName'";
     if (mysqli_query($conn, $sqlUP)) {
       $msg = "تم تعديل البيانات بنجاح";
+      echo $msg;
     } else {
-      $msg = "لم يتم تعديل البيانات حاول مجدداً و تأكد من ادخال كافة البيانات";
+      $msg = "لم يتم تعديل البيانات حاول مجدداً و تأكد من ادخال كافة البيانات" . mysqli_error($conn);
+      echo $msg;
     }
   }
 
@@ -142,9 +148,83 @@ if ($_SESSION['AcountType'] == 'Patient' || $_SESSION['AcountType'] == 'Admin') 
   }
 }
 
+// If User IS Doctor 
+
+if ($_SESSION['AcountType'] == 'Doctor') {
+  // Get Doctor Data
+  $sqlGDD = "SELECT * FROM doctors WHERE DocEmail = '$UserEmail'";
+  $resultGDD = mysqli_query($conn, $sqlGDD);
+  $rowGDD = $resultGDD->fetch_assoc();
+
+  // Get Doctor Data For Staticss
+  # Get New Booking Data
+  $DocName = $rowGDD['DocName'];
+  $sqlGNB = "SELECT COUNT(*) AS NB FROM orders WHERE DocName = '$DocName' AND Aproved = 'No'";
+  $resultGNB = mysqli_query($conn, $sqlGNB);
+  $rowGNB = $resultGNB->fetch_assoc();
+  # Get New Questions Data
+  $sqlGNQ = "SELECT COUNT(*) AS NQ FROM questions WHERE SendTo = '$DocName' AND Answer = 'لم يتم الرد بعد'";
+  $resultGNQ = mysqli_query($conn, $sqlGNQ);
+  $rowGNQ = $resultGNQ->fetch_assoc();
+  # Get All Questions Count
+  $sqlGNQT = "SELECT COUNT(*) AS NQT FROM questions WHERE SendTo = '$DocName'";
+  $resultGNQT = mysqli_query($conn, $sqlGNQT);
+  $rowGNQT = $resultGNQT->fetch_assoc();
+  # Get All Booking Count
+  $sqlGNBT = "SELECT COUNT(*) AS NBT FROM orders WHERE DocName = '$DocName'";
+  $resultGNBT = mysqli_query($conn, $sqlGNBT);
+  $rowGNBT = $resultGNBT->fetch_assoc();
+  // Get Not Aproved Booking
+  $sqlGNAB = "SELECT * FROM orders WHERE DocName = '$DocName' AND Aproved = 'No'";
+  $resultGNAB = mysqli_query($conn, $sqlGNAB);
+  // Get Aproved Booking
+  $sqlGAB = "SELECT * FROM orders WHERE DocName = '$DocName' AND Aproved = 'Yes'";
+  $resultGAB = mysqli_query($conn, $sqlGAB);
+  // Get New Questions
+  $sqlGNQ2 = "SELECT * FROM questions WHERE SendTo = '$DocName' AND Answer = 'لم يتم الرد بعد'";
+  $resultGNQ2 = mysqli_query($conn, $sqlGNQ2);
+  // Get Old Questions
+  $sqlGOQ2 = "SELECT * FROM questions WHERE SendTo = '$DocName' AND Answer != 'لم يتم الرد بعد'";
+  $resultGOQ2 = mysqli_query($conn, $sqlGOQ2);
+
+  if (isset($_POST['updateD'])) {
+
+    @$UserName = $_POST['UserName'];
+    @$UserEmail = $_POST['UserEmail'];
+    @$UserPassword = $_POST['UserPassword'];
+    @$UserAge = $_POST['UserAge'];
+    @$UserGender = $_POST['UserGender'];
+    @$DocPhone = $_POST['DocPhone'];
+    @$DocSpec = $_POST['DocSpec'];
+    @$DocClinic = $_POST['DocClinic'];
+    $docEmail2 = $_SESSION['DocEmail'];
+    // Sql Update Doc Data
+    $sqlUDD = "UPDATE doctors SET DocName = '$UserName',DocEmail = '$UserEmail',DocPassword = '$UserPassword',DocPhone = '$DocPhone',DocGender = '$UserGender',DocAge = '$UserAge',DocSpec = '$DocSpec',DocClinic = '$DocClinic' WHERE DocEmail = '$docEmail2'";
+    if (mysqli_query($conn, $sqlUDD)) {
+      $msg = "تم تحديث البيانات بنجاح";
+    } else {
+      $msg = "خطا حاول مجدداً";
+    }
+  }
+}
+@$Aprove = $_REQUEST['Ap'];
+if ($_SERVER['QUERY_STRING'] == "Ap=" . $Aprove) {
+  $sqlMIA = "UPDATE orders SET Aproved = 'Yes' WHERE ID = '$Aprove'";
+  mysqli_query($conn, $sqlMIA);
+}
+
+@$Del = $_REQUEST['De'];
+if ($_SERVER['QUERY_STRING'] == "De=" . $Del) {
+  $sqlDI = "DELETE FROM orders WHERE ID = '$Del'";
+  mysqli_query($conn, $sqlDI);
+}
+
+
 // echo "<pre>";
 // print_r($_SESSION);
 // echo "</pre>";
+// echo $_SERVER['QUERY_STRING'];
+// echo $_REQUEST['Ap'];
 
 
 ?>
@@ -166,6 +246,9 @@ if ($_SESSION['AcountType'] == 'Patient' || $_SESSION['AcountType'] == 'Admin') 
 
   <!-- Start Main Nav -->
   <nav>
+    <div class="sd-nav">
+      <i class="fa fa-angle-right"></i>
+    </div>
     <div class="main-nav-cont">
       <div class="logo">
         <img src="imgs/logo.png" alt="">
@@ -195,10 +278,9 @@ if ($_SESSION['AcountType'] == 'Patient' || $_SESSION['AcountType'] == 'Admin') 
         } elseif ($_SESSION['AcountType'] == 'Doctor') {
           echo '
           <li class="active staticsbtn"><a href="#">احصائيات</a></li>
-          <li class="offersbtn"><a href="#">اضافة عرض</a></li>
-          <li class="bookingbtn"><a href="#">الحجوزات</a></li>
-          <li class="questionbtn"><a href="#">الاستشارات</a></li>
-          <li class="editbtn"><a href="#">تعديل بيانات</a></li>
+        <li class="offersbtn"><a href="#">الحجوزات</a></li>
+        <li class="bookingbtn"><a href="#">الاستشارات</a></li>
+        <li class="questionbtn"><a href="#">تعديل بيانات</a></li>
           ';
         }
 
@@ -216,7 +298,15 @@ if ($_SESSION['AcountType'] == 'Patient' || $_SESSION['AcountType'] == 'Admin') 
   <div class="main-content">
 
     <div class="header">
-      <p class="name"><?php echo $rowUD['UserName']; ?></p>
+      <p class="name">
+        <?php
+        if ($_SESSION['AcountType'] == 'Patient' || $_SESSION['AcountType'] == 'Admin') {
+          echo $rowUD['UserName'];
+        } else {
+          echo $rowGDD['DocName'];
+        }
+        ?>
+      </p>
       <p class="date"><?php echo date("D d-m-Y"); ?></p>
     </div>
 
@@ -232,101 +322,150 @@ if ($_SESSION['AcountType'] == 'Patient' || $_SESSION['AcountType'] == 'Admin') 
     if ($_SESSION['AcountType'] == 'Patient') {
       echo '
 
-  <div class="statics">
-
-    <div class="box">
-      <p><i class="fa fa-id-card-o fa-fw fa-3x"></i></p>
-      <div class="seperator"></div>
-      <p class="info">الحجوزات</p>
-      <p class="number">' . $rowUD['BookingNo'] . '</p>
-    </div>
-
-    <div class="box">
-      <p><i class="fa fa-thermometer-empty fa-fw fa-3x"></i></p>
-      <div class="seperator"></div>
-      <p class="info">الاستشارات</p>
-      <p class="number">' . $rowUD['QuestionNo'] . '</p>
-    </div>
-
-    <div class="box">
-      <p><i class="fa fa-calendar fa-fw fa-3x"></i></p>
-      <div class="seperator"></div>
-      <p class="info">عضو منذ</p>
-      <p class="number">' . $rowUD['RegDate'] . '</p>
-    </div>
-
-    <div class="box">
-      <p><i class="fa fa-globe fa-fw fa-3x"></i></p>
-      <div class="seperator"></div>
-      <p class="info">المحافظة</p>
-      <p class="number">' . $rowUD['UserCountry'] . '</p>
-    </div>
-
-    <div class="box contact">
-      <p><i class="fa fa-envelope fa-fw fa-3x"></i></p>
-      <div class="seperator"></div>
-      <p class="info">الايمال</p>
-      <p class="number">' . $rowUD['UserEmail'] . '</p>
-    </div>
-
-  </div>
-  ';
-    } elseif ($_SESSION['AcountType'] == 'Admin') {
-      echo '
-
       <div class="statics">
-    
+
         <div class="box">
           <p><i class="fa fa-id-card-o fa-fw fa-3x"></i></p>
           <div class="seperator"></div>
           <p class="info">الحجوزات</p>
           <p class="number">' . $rowUD['BookingNo'] . '</p>
         </div>
-    
+
         <div class="box">
           <p><i class="fa fa-thermometer-empty fa-fw fa-3x"></i></p>
           <div class="seperator"></div>
           <p class="info">الاستشارات</p>
           <p class="number">' . $rowUD['QuestionNo'] . '</p>
         </div>
-    
+
         <div class="box">
-          <p><i class="fa fa-envelope fa-fw fa-3x"></i></p>
+          <p><i class="fa fa-calendar fa-fw fa-3x"></i></p>
           <div class="seperator"></div>
-          <p class="info">عدد الاطباء</p>
-          <p class="number">' . $rowDN['DN'] . '</p>
+          <p class="info">عضو منذ</p>
+          <p class="number">' . $rowUD['RegDate'] . '</p>
         </div>
 
         <div class="box">
-          <p><i class="fa fa-envelope fa-fw fa-3x"></i></p>
+          <p><i class="fa fa-globe fa-fw fa-3x"></i></p>
           <div class="seperator"></div>
-          <p class="info">اطباء اونلاين</p>
-          <p class="number">' . $rowDNO['DNO'] . '</p>
+          <p class="info">المحافظة</p>
+          <p class="number">' . $rowUD['UserCountry'] . '</p>
         </div>
 
-        <div class="box">
+        <div class="box contact">
           <p><i class="fa fa-envelope fa-fw fa-3x"></i></p>
           <div class="seperator"></div>
-          <p class="info">عدد الاعضاء</p>
-          <p class="number">' . $rowUN['UN'] . '</p>
+          <p class="info">الايمال</p>
+          <p class="number">' . $rowUD['UserEmail'] . '</p>
         </div>
 
-        <div class="box">
-          <p><i class="fa fa-envelope fa-fw fa-3x"></i></p>
-          <div class="seperator"></div>
-          <p class="info">اعضاء اونلاين</p>
-          <p class="number">' . $rowUNO['UNO']  . '</p>
-        </div>
-
-        <div class="box">
-          <p><i class="fa fa-envelope fa-fw fa-3x"></i></p>
-          <div class="seperator"></div>
-          <p class="info">عدد العروض</p>
-          <p class="number">' . $rowOffNo['ID']  . '</p>
-        </div>
-    
       </div>
-      ';
+    ';
+    } elseif ($_SESSION['AcountType'] == 'Admin') {
+      echo '
+
+        <div class="statics">
+      
+          <div class="box">
+            <p><i class="fa fa-id-card-o fa-fw fa-3x"></i></p>
+            <div class="seperator"></div>
+            <p class="info">الحجوزات</p>
+            <p class="number">' . $rowUD['BookingNo'] . '</p>
+          </div>
+      
+          <div class="box">
+            <p><i class="fa fa-thermometer-empty fa-fw fa-3x"></i></p>
+            <div class="seperator"></div>
+            <p class="info">الاستشارات</p>
+            <p class="number">' . $rowUD['QuestionNo'] . '</p>
+          </div>
+      
+          <div class="box">
+            <p><i class="fa fa-envelope fa-fw fa-3x"></i></p>
+            <div class="seperator"></div>
+            <p class="info">عدد الاطباء</p>
+            <p class="number">' . $rowDN['DN'] . '</p>
+          </div>
+
+          <div class="box">
+            <p><i class="fa fa-envelope fa-fw fa-3x"></i></p>
+            <div class="seperator"></div>
+            <p class="info">اطباء اونلاين</p>
+            <p class="number">' . $rowDNO['DNO'] . '</p>
+          </div>
+
+          <div class="box">
+            <p><i class="fa fa-envelope fa-fw fa-3x"></i></p>
+            <div class="seperator"></div>
+            <p class="info">عدد الاعضاء</p>
+            <p class="number">' . $rowUN['UN'] . '</p>
+          </div>
+
+          <div class="box">
+            <p><i class="fa fa-envelope fa-fw fa-3x"></i></p>
+            <div class="seperator"></div>
+            <p class="info">اعضاء اونلاين</p>
+            <p class="number">' . $rowUNO['UNO']  . '</p>
+          </div>
+
+          <div class="box">
+            <p><i class="fa fa-envelope fa-fw fa-3x"></i></p>
+            <div class="seperator"></div>
+            <p class="info">عدد العروض</p>
+            <p class="number">' . $rowOffNo['ID']  . '</p>
+          </div>
+      
+        </div>
+        ';
+    } elseif ($_SESSION['AcountType'] == 'Doctor') {
+      echo '
+
+        <div class="statics">
+      
+          <div class="box">
+            <p><i class="fa fa-id-card-o fa-fw fa-3x"></i></p>
+            <div class="seperator"></div>
+            <p class="info">حجوزات جديدة</p>
+            <p class="number">' . $rowGNB['NB'] . '</p>
+          </div>
+      
+          <div class="box">
+            <p><i class="fa fa-thermometer-empty fa-fw fa-3x"></i></p>
+            <div class="seperator"></div>
+            <p class="info" style="font-size:18px"> استشارات جديدة</p>
+            <p class="number">' . $rowGNQ['NQ'] . '</p>
+          </div>
+      
+          <div class="box">
+            <p><i class="fa fa-thermometer-empty fa-fw fa-3x"></i></p>
+            <div class="seperator"></div>
+            <p class="info">حجوزات كلي</p>
+            <p class="number">' . $rowGNBT['NBT'] . '</p>
+          </div>
+
+          <div class="box">
+            <p><i class="fa fa-thermometer-empty fa-fw fa-3x"></i></p>
+            <div class="seperator"></div>
+            <p class="info">استشارات كلي</p>
+            <p class="number">' . $rowGNQT['NQT'] . '</p>
+          </div>
+      
+          <div class="box">
+          <p><i class="fa fa-calendar fa-fw fa-3x"></i></p>
+          <div class="seperator"></div>
+          <p class="info">عضو منذ</p>
+          <p class="number">' . $rowGDD['RegDate'] . '</p>
+        </div>
+
+        <div class="box">
+          <p><i class="fa fa-globe fa-fw fa-3x"></i></p>
+          <div class="seperator"></div>
+          <p class="info">المحافظة</p>
+          <p class="number">' . $rowGDD['DocCountry'] . '</p>
+        </div>
+
+        </div>
+        ';
     }
 
     ?>
@@ -340,9 +479,9 @@ if ($_SESSION['AcountType'] == 'Patient' || $_SESSION['AcountType'] == 'Admin') 
 
     if ($_SESSION['AcountType'] == 'Patient') {
       echo '
-      <div class="offers">
+    <div class="offers">
 
-      <p class="head">العروض المتاحة حالياً</p>
+        <p class="head">العروض المتاحة حالياً</p>
 
       ';
 
@@ -350,32 +489,32 @@ if ($_SESSION['AcountType'] == 'Patient' || $_SESSION['AcountType'] == 'Admin') 
       if ($resultOffD->num_rows > 0) {
         while ($rowOffD = $resultOffD->fetch_assoc()) {
           echo '
-          <div class="box">
+            <div class="box">
               <div class="image">
                 <img src="' . $rowOffD['OffImageSrc'] . '" alt="">
               </div>
-            <div class="info">
-              <div class="datails">
-                <p class="name">' . $rowOffD['OffName'] . '</p>
-                <p class="price"><span class="new">' . $rowOffD['OffNPrice'] . '</span>EGP | <span class="old">' . $rowOffD['OffOPrice'] . '</span>EGP</p>
-              </div>
-              <div class="show-more">
-                <a href="#"><i class="fa fa-angle-left"></i></a>
+              <div class="info">
+                <div class="datails">
+                  <p class="name">' . $rowOffD['OffName'] . '</p>
+                  <p class="price"><span class="new">' . $rowOffD['OffNPrice'] . '</span>EGP | <span class="old">' . $rowOffD['OffOPrice'] . '</span>EGP</p>
+                </div>
+                <div class="show-more">
+                  <a href="#"><i class="fa fa-angle-left"></i></a>
+                </div>
               </div>
             </div>
-          </div>
           ';
         }
       }
       echo '
-        </div>
+    </div>
       ';
     } elseif ($_SESSION['AcountType'] == 'Admin') {
 
       echo '
       <div class="offers">
 
-      <p class="head">العروض المتاحة حالياً</p>
+        <p class="head">العروض المتاحة حالياً</p>
 
       ';
 
@@ -383,29 +522,105 @@ if ($_SESSION['AcountType'] == 'Patient' || $_SESSION['AcountType'] == 'Admin') 
       if ($resultOffD->num_rows > 0) {
         while ($rowOffD = $resultOffD->fetch_assoc()) {
           echo '
-          <div class="box">
+            <div class="box">
               <div class="image">
                 <img src="' . $rowOffD['OffImageSrc'] . '" alt="">
               </div>
-            <div class="info">
-              <div class="datails">
-                <p class="name">' . $rowOffD['OffName'] . '</p>
-                <p class="price"><span class="new">' . $rowOffD['OffNPrice'] . '</span>EGP | <span class="old">' . $rowOffD['OffOPrice'] . '</span>EGP</p>
-              </div>
-              <div class="show-more">
-                <a href="#"><i class="fa fa-angle-left"></i></a>
+              <div class="info">
+                <div class="datails">
+                  <p class="name">' . $rowOffD['OffName'] . '</p>
+                  <p class="price"><span class="new">' . $rowOffD['OffNPrice'] . '</span>EGP | <span class="old">' . $rowOffD['OffOPrice'] . '</span>EGP</p>
+                </div>
+                <div class="show-more">
+                  <a href="#"><i class="fa fa-angle-left"></i></a>
+                </div>
               </div>
             </div>
-          </div>
           ';
         }
       }
       echo '
-      <p style="clear:both"></p>
-      <div class="add-offer">
-        <p class="head">اضافة عرض جديد</p>
       </div>
-        </div>
+      ';
+    } elseif ($_SESSION['AcountType'] == 'Doctor') {
+      echo '
+      <div class="offers" style="background-color:#FFF;color:#0c4a7d;margin:20px;padding:50px;border-radius:10px">
+
+        <p class="head" style="font-size:20px">حجوزات للمراجعة</p>
+        
+          
+      ';
+      if ($resultGNAB->num_rows > 0) {
+        echo '
+        <table class="bt">
+        <tr>
+            <th>اسم المريض</th>
+            <th>رقم الهاتف</th>
+            <th>ايمال المريض</th>
+            <th>تاريخ الحجز</th>
+            <th>تاريخ انشاء الطلب</th>
+            <th>قبول</th>
+            <th>حذف</th>
+          </tr>
+        ';
+        while ($rowGNAB = $resultGNAB->fetch_assoc()) {
+          echo '
+            <tr>
+              <td>' . $rowGNAB['PatientName'] . '</td>
+              <td>' . $rowGNAB['PatientPhone'] . '</td>
+              <td>' . $rowGNAB['PatientEmail'] . '</td>
+              <td>' . $rowGNAB['WantDate'] . '</td>
+              <td>' . $rowGNAB['DateCreated'] . '</td>
+              <td>
+                <a href="' . $_SERVER['HTTP_REFERER'] . '?Ap=' . $rowGNAB['ID'] . '"><i class="fa fa-check"></i></a>
+              </td>
+              <td>
+                <a href="' . $_SERVER['HTTP_REFERER'] . '?De=' . $rowGNAB['ID'] . '"><i class="fa fa-times"></i></a>
+              </td>
+            </tr>
+          ';
+        }
+      } else {
+        echo '<p class="head" style="color:#55c0a2">لا يوجد حجوزات بانتظار الموافقة</p>';
+      }
+
+
+      echo '
+        </table>
+        <hr style="margin:40px 0;border:2px solid #0c4a7d;border-radius:10px;"/>        
+        ';
+
+      if ($resultGAB->num_rows > 0) {
+        echo '<p class="head" style="font-size:20px">الحجوزات المقبولة</p>';
+        echo '
+        <table class="bt">
+        <tr>
+            <th>اسم المريض</th>
+            <th>رقم الهاتف</th>
+            <th>ايمال المريض</th>
+            <th>تاريخ الحجز</th>
+            <th>تاريخ انشاء الطلب</th>
+          </tr>
+        ';
+        while ($rowGAB = $resultGAB->fetch_assoc()) {
+          echo '
+            <tr>
+              <td>' . $rowGAB['PatientName'] . '</td>
+              <td>' . $rowGAB['PatientPhone'] . '</td>
+              <td>' . $rowGAB['PatientEmail'] . '</td>
+              <td>' . $rowGAB['WantDate'] . '</td>
+              <td>' . $rowGAB['DateCreated'] . '</td>
+            </tr>
+          ';
+        }
+        echo '
+        </table>
+        <hr style="margin:40px 0;border:2px solid #0c4a7d;border-radius:10px;"/>
+        ';
+      }
+
+      echo '
+      </div>
       ';
     }
 
@@ -419,98 +634,182 @@ if ($_SESSION['AcountType'] == 'Patient' || $_SESSION['AcountType'] == 'Admin') 
 
     if ($_SESSION['AcountType'] == 'Patient') {
       echo '
-      <div class="booking">
-      <p class="head">حجز موعد طبيب</p>
-      <form class="doctor-filter" action="' . $_SERVER['PHP_SELF'] . '?P=Booking' . '" method="POST">
-        <div class="input-feild">
-          <label for="DocName">الطبيب</label>
-          <input name="DocName" value="' . $DocName . '" id="DocName" type="text">
-        </div>
-        <div class="input-feild">
-          <label for="DocSpe">التخصص</label>
-          <input name="DocSpe" id="DocSpe" value="' . $DocSpe . '" type="text">
-        </div>
-        <div class="input-feild">
-          <label for="DocClinic">العيادة او المستشفي</label>
-          <input name="DocClinic" value="' . $DocClinic . '" id="DocClinic" type="text">
-        </div>
-        <div class="input-feild">
-          <input type="submit" name="submit" value="بحث">
-        </div>
-      </form>
+          <div class="booking">
+            <p class="head">حجز موعد طبيب</p>
+            <form class="doctor-filter" action="' . $_SERVER['PHP_SELF'] . '?P=Booking' . '" method="POST">
+              
+              <div class="input-feild">
+                <label for="DocName">الطبيب</label>
+                <input name="DocName" value="' . $DocName . '" id="DocName" type="text">
+              </div>
 
-';
-      echo '
-      <div class="doc-result">
+              <div class="input-feild">
+                <label for="DocSpe">التخصص</label>
+                <input name="DocSpe" id="DocSpe" value="' . $DocSpe . '" type="text">
+              </div>
+
+              <div class="input-feild">
+                <label for="DocClinic">العيادة او المستشفي</label>
+                <input name="DocClinic" value="' . $DocClinic . '" id="DocClinic" type="text">
+              </div>
+
+              <div class="input-feild">
+                <input type="submit" name="submit" value="بحث">
+              </div>
+            </form>
+
           ';
+      echo '
+            <div class="doc-result">
+              ';
       if (@$resultDD->num_rows > 0) {
         echo '
-          <p class="head">نتائج البحث</p>
-          ';
+              <p class="head">نتائج البحث</p>
+              ';
         while ($rowDD = $resultDD->fetch_assoc()) {
           echo '
-            <div class="box">
-          <img src="' . $rowDD['DocImageSrc'] . '" alt="">
-          <p class="name">' . $rowDD['DocName'] . '</p>
-          <p class="spe">' . $rowDD['DocSpec'] . '</p>
-          <div class="btn">
-            <a href="#"><i class="fa fa-angle-left"></i> حجز موعد</a>
-          </div>
-        </div>
-            ';
+              <div class="box">
+                <img src="' . $rowDD['DocImageSrc'] . '" alt="">
+                <p class="name">' . $rowDD['DocName'] . '</p>
+                <p class="spe">' . $rowDD['DocSpec'] . '</p>
+                <div class="btn">
+                  <a href="#"><i class="fa fa-angle-left"></i> حجز موعد</a>
+                </div>
+              </div>
+                ';
         }
       }
 
       echo '
-    </div>
-      ';
+      </div>
+          ';
     } elseif ($_SESSION['AcountType'] == 'Admin') {
       echo '
-      <div class="booking">
-      <p class="head">جميع الاطباء</p>
-<br>
-        <table>
-          <tr>
-            <th>معرف</th>
-            <th>اسم الطبيب</th>
-            <th>التخصص</th>
-            <th>المحافظة</th>
-            <th>العيادة</th>
-            <th>متصل</th>
-          </tr>';
+        <div class="booking">
+          <p class="head">جميع الاطباء</p>
+          <br>
+            <table>
+              <tr>
+                <th>معرف</th>
+                <th>اسم الطبيب</th>
+                <th>التخصص</th>
+                <th>المحافظة</th>
+                <th>العيادة</th>
+                <th>متصل</th>
+              </tr>';
 
       while ($rowGAD = $resultGAD->fetch_assoc()) {
         echo '
-        <tr>
-          <td>' . $rowGAD['ID'] . '</td>
-          <td>' . $rowGAD['DocName'] . '</td>
-          <td>' . $rowGAD['DocSpec'] . '</td>
-          <td>' . $rowGAD['DocCountry'] . '</td>
-          <td>' . $rowGAD['DocClinic'] . '</td>
-          <td>';
+            <tr>
+              <td>' . $rowGAD['ID'] . '</td>
+              <td>' . $rowGAD['DocName'] . '</td>
+              <td>' . $rowGAD['DocSpec'] . '</td>
+              <td>' . $rowGAD['DocCountry'] . '</td>
+              <td>' . $rowGAD['DocClinic'] . '</td>
+              <td>';
         if ($rowGAD['Online'] == 'Yes') {
           echo 'متصل';
         } else {
           echo 'غير متصل';
         }
         echo '
-          </td>
-        </tr>
+              </td>
+            </tr>
+            ';
+      }
+
+      echo '
+          </table>
+
+          <p class="head">حذف طبيب</p>
+          <br>
+            <form action="' . $_SERVER['PHP_SELF'] . '" method="POST" class="deletDoc">
+            <input type="text" name="id" placeholder="اكتب معرف الطبيب">
+            <input type="submit" name="delete" value="حذف">
+          </form>
+       ';
+    } elseif ($_SESSION['AcountType'] == 'Doctor') {
+
+      echo '
+      <div class="booking">
+      <p class="head">الاستشارات الجديدة</p>
+      <br>
+      ';
+
+      if ($resultGNQ2->num_rows > 0) {
+        echo '
+          
+          <table class="bt">
+          <tr>
+            <th>السؤال</th>
+            <th>اسم المريض</th>
+            <th>معلومات</th>
+            <th>تاريخ الاستشارة</th>
+            <th>ارسال اجابة</th>
+          </tr>
+        ';
+        while ($rowGNQ2 = $resultGNQ2->fetch_assoc()) {
+          echo '
+            <tr>
+              <td>' . $rowGNQ2['Question'] . '</td>
+              <td>' . $rowGNQ2['SendFrom'] . '</td>
+              <td>' . $rowGNQ2['AdditionalData'] . '</td>
+              <td>' . $rowGNQ2['DateCreated'] . '</td>
+              <td>
+                <a href="replay.php?id=' . $rowGNQ2['ID'] . '"><i class="fa fa-paper-plane"></i></a>
+              </td>
+            </tr>
+          ';
+        }
+
+        echo '
+        </table>
+        ';
+      } else {
+        echo '
+        <p class="head" style="color:#55c0a2">لا يوجد استشارات جديدة</p>
         ';
       }
 
       echo '
-        </table>
-
-<p class="head">حذف طبيب</p>
-<br>
-<form action="' . $_SERVER['PHP_SELF'] . '" method="POST" class="deletDoc">
-      <input type="text" name="id" placeholder="اكتب معرف الطبيب">
-      <input type="submit" name="delete" value="حذف">
-</form>
-
-      </div>
+      <hr style="margin:40px 0;border:2px solid #0c4a7d;border-radius:10px;"/>        
+      <p class="head">الاستشارات السابقة</p>
+      <br>
       ';
+
+      if ($resultGOQ2->num_rows > 0) {
+        echo '
+          
+          <table class="bt">
+          <tr>
+            <th>السؤال</th>
+            <th>اسم المريض</th>
+            <th>معلومات اضافية</th>
+            <th>تاريخ الاستشارة</th>
+            <th>الاجابة</th>
+          </tr>
+        ';
+        while ($rowGOQ2 = $resultGOQ2->fetch_assoc()) {
+          echo '
+            <tr>
+              <td>' . $rowGOQ2['Question'] . '</td>
+              <td>' . $rowGOQ2['SendFrom'] . '</td>
+              <td>' . $rowGOQ2['AdditionalData'] . '</td>
+              <td>' . $rowGOQ2['DateCreated'] . '</td>
+              <td>' . $rowGOQ2['Answer'] . '</td>
+              
+            </tr>
+          ';
+        }
+
+        echo '
+        </table>
+        ';
+      } else {
+        echo '
+        <p class="head" style="color:#55c0a2">لم تقم بالاجابة علي استشارات بعد</p>
+        ';
+      }
     }
 
     ?>
@@ -525,26 +824,31 @@ if ($_SESSION['AcountType'] == 'Patient' || $_SESSION['AcountType'] == 'Admin') 
   if ($_SESSION['AcountType'] == 'Patient') {
     echo '
     <div class="question">
-    <p class="head">استشارة طبيب</p>
-    <form class="doctor-filter" action="' . $_SERVER['PHP_SELF'] . '?P=Question' . '" method="POST">
-      <div class="input-feild">
-        <label for="DocName">الطبيب</label>
-        <input name="DocName1" id="DocName" value="' . $DocName1 . '" type="text">
-      </div>
-      <div class="input-feild">
-        <label for="DocSpe">التخصص</label>
-        <input name="DocSpe1" id="DocSpe" value="' . $DocSpe1 . '" type="text">
-      </div>
-      <div class="input-feild">
-        <label for="DocClinic">العيادة او المستشفي</label>
-        <input name="DocClinic1" value="' . $DocClinic1 . '" id="DocClinic" type="text">
-      </div>
-      <div class="input-feild">
-        <input type="submit" name="submit" value="بحث">
-      </div>
-    </form>
+      <p class="head">استشارة طبيب</p>
+        <form class="doctor-filter" action="' . $_SERVER['PHP_SELF'] . '?P=Question' . '" method="POST">
+          
+          <div class="input-feild">
+            <label for="DocName">الطبيب</label>
+            <input name="DocName1" id="DocName" value="' . $DocName1 . '" type="text">
+          </div>
 
-';
+          <div class="input-feild">
+            <label for="DocSpe">التخصص</label>
+            <input name="DocSpe1" id="DocSpe" value="' . $DocSpe1 . '" type="text">
+          </div>
+
+          <div class="input-feild">
+            <label for="DocClinic">العيادة او المستشفي</label>
+            <input name="DocClinic1" value="' . $DocClinic1 . '" id="DocClinic" type="text">
+          </div>
+
+          <div class="input-feild">
+            <input type="submit" name="submit" value="بحث">
+          </div>
+
+        </form>
+
+    ';
 
     echo '<div class="doc-result">';
 
@@ -566,14 +870,14 @@ if ($_SESSION['AcountType'] == 'Patient' || $_SESSION['AcountType'] == 'Admin') 
     }
 
     echo '
-  </div>
+      </div>
   </div>
     ';
   } elseif ($_SESSION['AcountType'] == 'Admin') {
     echo '
-    <div class="question">
-      <p class="head">جميع الاعضاء</p>
-<br>
+      <div class="question">
+        <p class="head">جميع الاعضاء</p>
+        <br>
         <table>
           <tr>
             <th>معرف</th>
@@ -609,15 +913,76 @@ if ($_SESSION['AcountType'] == 'Patient' || $_SESSION['AcountType'] == 'Admin') 
     echo '
         </table>
 
-<p class="head">حذف عضو</p>
-<br>
-<form action="' . $_SERVER['PHP_SELF'] . '" method="POST" class="deletDoc">
-      <input type="text" name="idUser" placeholder="اكتب معرف العضو">
-      <input type="submit" name="deleteUser" value="حذف">
-</form>
-
+      <p class="head">حذف عضو</p>
+      <br>
+        <form action="' . $_SERVER['PHP_SELF'] . '" method="POST" class="deletDoc">
+          <input type="text" name="idUser" placeholder="اكتب معرف العضو">
+          <input type="submit" name="deleteUser" value="حذف">
+        </form>
       </div>
       ';
+  } elseif ($_SESSION['AcountType'] == 'Doctor') {
+    echo '
+      <div class="question">
+      <p class="head" style="text-align: center;font-weight:bold;margin-bottom:20px">تعديل بيانات الحساب</p>
+      <div class="edit-box">
+        <form action="' . $_SERVER['PHP_SELF'] . '?P=ED' . '" method="POST">
+
+          <div class="input-feild">
+            <label for="UserName">الاسم</label>
+            <input name="UserName" id="UserName" value="' . $rowGDD['DocName'] . '" type="text" placeholder="أكتب اسمك . . ." autocomplete="off">
+          </div>
+
+          <div class="input-feild">
+            <label for="UserEmail">الايمال</label>
+            <input name="UserEmail" id="UserEmail" value="' . $rowGDD['DocEmail'] . '" type="email" placeholder="أكتب ايمالك . . ." autocomplete="off">
+          </div>
+
+          <div class="input-feild">
+            <label for="UserPassword">كلمة المرور</label>
+            <input name="UserPassword" id="UserPassword" value="' . $rowGDD['DocPassword'] . '" type="text" placeholder="أكتب كلمة المرور . . " autocomplete="off">
+          </div>
+
+          <div class="input-feild">
+            <label for="UserAge">السن</label>
+            <input name="UserAge" id="UserAge" type="number" value="' . $rowGDD['DocAge'] . '" placeholder="أكتب كم عمرك . . " autocomplete="off">
+          </div>
+
+          <div class="input-feild">
+            <label for="UserGender">النوع</label>
+            <select name="UserGender" id="UserGender" required>
+              <option value="male">ذكر</option>
+              <option value="female">انثي</option>
+            </select>
+          </div>
+
+          <div class="input-feild">
+          <label for="DocPhone">الهاتف</label>
+          <input name="DocPhone" id="DocPhone" value="' . $rowGDD['DocPhone'] . '" type="text" placeholder="أكتب رقم هاتفك . . " autocomplete="off" required>
+        </div>
+
+        <div class="input-feild">
+          <label for="DocSpec">تخصصك</label>
+          <input name="DocSpec" id="DocSpec" value="' . $rowGDD['DocSpec'] . '" type="text" placeholder="أكتب تخصصك . . " autocomplete="off" required>
+        </div>
+
+        <div class="input-feild">
+          <label for="DocClinic">العيادة</label>
+          <input name="DocClinic" id="DocClinic" value="' . $rowGDD['DocClinic'] . '" type="text" placeholder="أكتب عنوان عيادتك . . " autocomplete="off" required>
+        </div>
+
+
+          <input type="submit" name="updateD" value="حفظ التعديل">
+
+        </form>
+
+      </div>
+        ';
+
+
+    echo '
+          </div>
+        ';
   }
 
   ?>
@@ -632,46 +997,45 @@ if ($_SESSION['AcountType'] == 'Patient' || $_SESSION['AcountType'] == 'Admin') 
 
     echo '
     <div class="edit">
-    <p class="head" style="text-align: center;font-weight:bold;margin-bottom:20px">تعديل بيانات الحساب</p>
-    <div class="edit-box">
-      <form action="' . $_SERVER['PHP_SELF'] . '?P=Edit' . '" method="POST">
+      <p class="head" style="text-align: center;font-weight:bold;margin-bottom:20px">تعديل بيانات الحساب</p>
+      <div class="edit-box">
+        <form action="' . $_SERVER['PHP_SELF'] . '?P=Edit' . '" method="POST">
 
-        <div class="input-feild">
-          <label for="UserName">الاسم</label>
-          <input name="UserName" id="UserName" value="' . $rowUD['UserName'] . '" type="text" placeholder="أكتب اسمك . . ." autocomplete="off">
-        </div>
+          <div class="input-feild">
+            <label for="UserName">الاسم</label>
+            <input name="UserName" id="UserName" value="' . $rowUD['UserName'] . '" type="text" placeholder="أكتب اسمك . . ." autocomplete="off">
+          </div>
 
-        <div class="input-feild">
-          <label for="UserEmail">الايمال</label>
-          <input name="UserEmail" id="UserEmail" value="' . $rowUD['UserEmail'] . '" type="email" placeholder="أكتب ايمالك . . ." autocomplete="off">
-        </div>
+          <div class="input-feild">
+            <label for="UserEmail">الايمال</label>
+            <input name="UserEmail" id="UserEmail" value="' . $rowUD['UserEmail'] . '" type="email" placeholder="أكتب ايمالك . . ." autocomplete="off">
+          </div>
 
-        <div class="input-feild">
-          <label for="UserPassword">كلمة المرور</label>
-          <input name="UserPassword" id="UserPassword" value="' . $rowUD['UserPassword'] . '" type="text" placeholder="أكتب كلمة المرور . . " autocomplete="off">
-        </div>
+          <div class="input-feild">
+            <label for="UserPassword">كلمة المرور</label>
+            <input name="UserPassword" id="UserPassword" value="' . $rowUD['UserPassword'] . '" type="text" placeholder="أكتب كلمة المرور . . " autocomplete="off">
+          </div>
 
-        <div class="input-feild">
-          <label for="UserAge">السن</label>
-          <input name="UserAge" id="UserAge" type="number" value="' . $rowUD['UserAge'] . '" placeholder="أكتب كم عمرك . . " autocomplete="off">
-        </div>
+          <div class="input-feild">
+            <label for="UserAge">السن</label>
+            <input name="UserAge" id="UserAge" type="number" value="' . $rowUD['UserAge'] . '" placeholder="أكتب كم عمرك . . " autocomplete="off">
+          </div>
 
-        <div class="input-feild">
-          <label for="UserGender">النوع</label>
-          <select name="UserGender" id="UserGender" required>
-            <option value="male">ذكر</option>
-            <option value="female">انثي</option>
-          </select>
-        </div>
+          <div class="input-feild">
+            <label for="UserGender">النوع</label>
+            <select name="UserGender" id="UserGender" required>
+              <option value="male">ذكر</option>
+              <option value="female">انثي</option>
+            </select>
+          </div>
 
-        <input type="submit" name="update" value="حفظ التعديل">
+          <input type="submit" name="update" value="حفظ التعديل">
 
-      </form>
+        </form>
 
+      </div>
     </div>
-  </div>
     ';
-  } elseif ($_SESSION['AcountType'] == 'Admin') {
   }
 
   ?>
@@ -749,6 +1113,12 @@ if ($_SESSION['AcountType'] == 'Patient' || $_SESSION['AcountType'] == 'Admin') 
         $('nav ul li:first-of-type').removeClass('active');
         $('nav ul li:nth-of-type(5)').addClass('active');
       })
+    } else if (window.location.search == "?P=ED") {
+      $('.edit').delay(500).fadeIn('slow');
+      $(document).ready(function() {
+        $('nav ul li:first-of-type').removeClass('active');
+        $('nav ul li:nth-of-type(4)').addClass('active');
+      })
     }
 
     var screen = document.querySelector('.screen');
@@ -767,6 +1137,22 @@ if ($_SESSION['AcountType'] == 'Patient' || $_SESSION['AcountType'] == 'Admin') 
 
     screenClose.onclick = function() {
       screen.style.display = 'none';
+    }
+
+    var sdNAv = document.querySelector('.sd-nav');
+    var Nav = document.querySelector('nav');
+    var MainContent = document.querySelector('.main-content');
+
+    sdNAv.onclick = function() {
+      Nav.classList.toggle('slide-left');
+      MainContent.classList.toggle('fix-left');
+      sdNAv.classList.toggle('bg-color')
+    }
+
+    if (window.innerWidth <= 460) {
+      Nav.classList.add('slide-left');
+      MainContent.classList.add('fix-left');
+      sdNAv.classList.add('bg-color')
     }
   </script>
 </body>
