@@ -1054,9 +1054,16 @@ if ($_SERVER['QUERY_STRING'] == "De=" . $Del) {
     });
 
     if (!window.location.search == "?P=Booking") {
-      $(document).ready(function() {
-        $('.statics').delay(500).fadeIn('slow');
-      })
+
+      window.onload = function() {
+        $(document).ready(function() {
+          $('.statics').delay(500).fadeIn('slow');
+        })
+      }
+    }
+
+    if (window.location.search == "?P=Booking") {
+      document.querySelector('.statics').style.display = "none";
     }
 
     $('.staticsbtn').click(function() {
@@ -1149,10 +1156,15 @@ if ($_SERVER['QUERY_STRING'] == "De=" . $Del) {
       sdNAv.classList.toggle('bg-color')
     }
 
-    if (window.innerWidth <= 460) {
+    if (window.innerWidth <= 721) {
       Nav.classList.add('slide-left');
       MainContent.classList.add('fix-left');
-      sdNAv.classList.add('bg-color')
+      sdNAv.classList.add('bg-color');
+      $('nav ul li').click(function() {
+        Nav.classList.toggle('slide-left');
+        MainContent.classList.toggle('fix-left');
+        sdNAv.classList.toggle('bg-color')
+      });
     }
   </script>
 </body>
