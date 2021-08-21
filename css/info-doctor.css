@@ -1,0 +1,160 @@
+body{
+    margin: 0;
+    padding: 0;
+    background: azure;
+    box-sizing: border-box;
+}
+h1{
+    text-align: center;
+    margin: 20px 0;
+    font-size: 30px;
+    position: relative;
+    font-weight: 700;
+    color: #1a3e5b;
+}
+ h1::after{
+    content: "";
+    width: 40px;
+    height: 40px;
+    position: absolute;
+    border: 2px solid #55c0a2;
+    border-radius: 50%;
+    top: -8px;
+    right: 44%;
+}
+p{
+    padding: 0 7%;
+    text-align: center;
+    line-height: 1.4;
+    color: #bfbfbf;
+}
+.container{
+    width: 80%;
+    margin: 20px auto;
+    padding: 15px;
+    background-color: #fff;
+    direction: rtl;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 1rem 2rem rgb(0 0 0 / 10%);
+    border-radius: 5px;
+}
+
+.box{
+    display: flex;
+    padding: 20px 0;
+    justify-content: space-between;
+}
+.inputRow{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    flex-basis: 55%;
+}
+.inputRow div{
+    display: flex;
+    flex-direction: column;
+    width: 48%;
+}
+.inputRow div input  {
+    background-color: azure;
+    border: 0;
+    outline: 0;
+    height: 30px;
+    padding: 0 15px;
+    margin-bottom: 15px;
+}
+.inputRow div label{
+    margin-bottom: 10px;
+}
+.inputRow div h3 {
+    margin: 20px 0;
+    font-size: 25px;
+    position: relative;
+    font-weight: 700;
+    color: #1a3e5b;
+    width: 200px;
+}
+.imgRow{
+    flex-basis: 40%;
+}
+.imgRow div{
+    width: 86%;
+    height: 90%;
+    background-color: azure;
+    margin-top: 10px;
+    position: relative;
+}
+.imgRow input{
+    visibility: hidden;
+}
+.imgRow div label{
+    position: absolute;
+    top: 50%;
+    width: 100%;
+    text-align: center;
+
+}
+.inputFile{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+.inputFile div{
+  width: 30%;   
+}
+.inputFile div .fileBox{
+    background-color: azure;
+    border: 0;
+    outline: 0;
+    width: 75%;
+    height: 40px;
+    padding: 0 15px;
+    margin-bottom: 15px;
+    margin-top: 10px;
+    position: relative;
+}
+.inputFile div .fileBox input{
+    visibility:hidden;
+}
+.inputFile div .fileBox label{
+    position: absolute;
+    top: 10px;
+    left: 16px;
+}
+.btn{
+    width: 96%;
+    margin: 15px 0;
+}
+.btn input{
+    text-align: center;
+    width: 100%;
+    height: 40px;
+    border: 0;
+    outline: 0;
+    background-color: #55c0a2;
+    color: #fff;
+    cursor: pointer;
+}
+@media (max-width:1180px) {
+    .box{
+        flex-direction: column-reverse;
+    }
+    .imgRow div{
+        height: 300px;
+        margin-bottom: 10px;
+        width: 100%;
+    }
+    .inputRow div ,.inputFile div{
+        width: 100%;
+    }
+    .inputRow div select,.inputRow div select{
+        width: 100%;
+    }
+    .inputFile div .fileBox{
+        width: 96%;
+    }
+    .btn{
+        width: 100%;
+    }
+}

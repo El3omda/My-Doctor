@@ -43,10 +43,10 @@ session_start();
     <section class="Book">
         <div class="slide">
             <span class="active">حجز موعد</span>
-            <span>حجز موعد</span>
-            <span>حجز موعد</span>
+            <span> استشارة طبية</span>
+            <span> خدمات أخرى </span>
         </div>
-        <form action="" class="boxForm">
+        <form action="" class="boxForm one ">
             <div class="input">
                 <div class="row">
                     <label for="">التخصص</label>
@@ -71,13 +71,63 @@ session_start();
                 <input type="submit" value="في دكتور؟؟">
             </div>
         </form>
+        <form action="" class="boxForm two">
+            <div class="input">
+                <div class="row">
+                    <label for="">التخصص</label>
+                    <select name="" id="">
+                        <option value="">علوم</option>
+                    </select>
+                </div>
+                <div class="row">
+                    <label for="">التخصص</label>
+                    <select name="" id="">
+                        <option value="">نساء </option>
+                    </select>
+                </div>
+                <div class="row">
+                    <label for="">التخصص</label>
+                    <select name="" id="">
+                        <option value="">اسنان</option>
+                    </select>
+                </div>
+            </div>
+            <div class="submit">
+                <input type="submit" value="في دكتور؟؟">
+            </div>
+        </form>
+        <form action="" class="boxForm three">
+            <div class="input">
+                <div class="row">
+                    <label for="">التخصص</label>
+                    <select name="" id="">
+                        <option value="">بطنه</option>
+                    </select>
+                </div>
+                <div class="row">
+                    <label for="">التخصص</label>
+                    <select name="" id="">
+                        <option value="">قلب مفتوح</option>
+                    </select>
+                </div>
+                <div class="row">
+                    <label for="">التخصص</label>
+                    <select name="" id="">
+                        <option value="">اسنان</option>
+                    </select>
+                </div>
+            </div>
+            <div class="submit">
+                <input type="submit" value="في دكتور؟؟">
+            </div>
+        </form>
     </section>
     <section class="servies">
         <h3>خدماتناs</h3>
 
     </section>
     <?php include "footer.php" ?>
-
+    <script src='main.js'></script>
 </body>
 
 </html>

@@ -113,6 +113,8 @@ body{
 .Book{
     padding: 30px 10%;
     direction: rtl;
+    position: relative;
+    height: 160px;
 }
 .Book .slide{
     width: 100%;
@@ -127,10 +129,10 @@ body{
     
 }
 .slide span{
-
     height: 100%;
     text-align: center;
     line-height: 1.7;
+    cursor: pointer;
 }
 .slide .active{
     background: #55c0a2;
@@ -142,6 +144,9 @@ body{
     grid-template-columns: 1fr 150px;
     direction: rtl;
     margin-top: 20px;
+    position: absolute;
+    top: 63px;
+    padding: 0 12px;
 }
 .input{
     display: flex;
@@ -163,7 +168,7 @@ body{
     outline: 0;
     font-size: 18px;
     color: #777;
-    margin-top: 10px;
+    margin: 10px 0px 10px 20px;
 }
 .submit input{
     width: 100%;
