@@ -207,4 +207,15 @@ p.text {
   user-select: none;
 }
 
+@media (max-width:540px) {
+  .sign-out {
+    width: 100%;
+    overflow-x: hidden;
+    padding: 0;
+  }
+  p.text {
+    font-size: 18px;
+  }
+}
+
 /* End Sign Out */

@@ -411,8 +411,8 @@ nav ul li.active a {
   height: 4px;
   position: absolute;
   bottom: 0;
-  right: 46%;
-  /* transform: translateX(-50%); */
+  left: 50%;
+  transform: translateX(-50%);
   background-color: #55c0a2;
 }
 
@@ -671,7 +671,7 @@ nav ul li.active a {
   }
   .statics .box p:first-of-type {
     margin: auto;
-    width: 50%;
+    width: 100%;
     float: none;
     text-align: center;
   }
@@ -701,5 +701,91 @@ nav ul li.active a {
     padding: 10px;
   }
 }
+@media (max-width:1020px) {
+  .offers {
+    overflow: hidden;
+  }
+  .offers .box {
+    width: none;
 
+  }
+  .offers .box .info .datails {
+    width: 70%;
+  }
+}
+@media (max-width:940px) {
+  .offers .box {
+    width: calc((100% / 2) - 50px);
+  }
+}
+@media (max-width:580px) {
+  .offers .box {
+    width: calc(100% - 50px);
+  }
+}
+@media (max-width:290px) {
+  .offers .box .info .datails {
+    width: 100%;
+  }
+  .show-more a {
+display: inline;
+width: 89% !important;
+height: unset !important;
+margin: 0 auto 5px;
+margin-left: 7px;
+  }
+}
+
+@media (max-width:850px) {
+  .booking, .question,.offers {
+    overflow: scroll;
+  }
+}
+
+@media (max-width:855px) {
+  .booking .doctor-filter div:first-of-type, .question .doctor-filter div:first-of-type {
+    width: 90%;
+    margin: 10px auto;
+    float: none;
+  }
+  .booking .doctor-filter div:nth-of-type(2), .question .doctor-filter div:nth-of-type(2) {
+    width: 90%;
+    margin: 10px auto;
+    float: none;
+  }
+  .booking .doctor-filter div:nth-of-type(3), .question .doctor-filter div:nth-of-type(3) {
+    width: 90%;
+    margin: 10px auto;
+    float: none;
+  }
+  .booking .doctor-filter div:nth-of-type(4), .question .doctor-filter div:nth-of-type(4) {
+    width: 90%;
+    margin: 10px auto;
+    float: none;
+  }
+  .booking .doctor-filter label,.question .doctor-filter label {
+    display: block;
+    text-align: center;
+    margin-bottom: 5px;
+  }
+  .booking .doctor-filter input, .question .doctor-filter input {
+    width: 100%;
+  }
+}
+
+@media (max-width:870px) {
+  .booking .box, .question .box {
+    width: calc((100% / 2) - 30px);
+    margin: 20px 0;
+    margin-right: 10px;
+  }
+}
+
+@media (max-width:500px) {
+  .booking .box, .question .box {
+    width: calc(100% - 20px);
+    margin: 20px 0;
+    text-align: center;
+  }
+}
 /* End Main Content */
