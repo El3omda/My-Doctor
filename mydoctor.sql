@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.1.0
+-- version 5.0.4
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 19, 2021 at 08:35 PM
--- Server version: 10.4.19-MariaDB
--- PHP Version: 7.3.28
+-- Generation Time: Aug 22, 2021 at 06:18 PM
+-- Server version: 10.4.17-MariaDB
+-- PHP Version: 8.0.0
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -40,16 +40,50 @@ CREATE TABLE `doctors` (
   `DocCountry` varchar(100) NOT NULL,
   `DocImageSrc` text NOT NULL,
   `Online` varchar(5) NOT NULL,
-  `RegDate` date NOT NULL DEFAULT current_timestamp()
+  `RegDate` date NOT NULL DEFAULT current_timestamp(),
+  `qualification` varchar(255) NOT NULL DEFAULT '-',
+  `Permit` varchar(255) NOT NULL DEFAULT '-',
+  `nNumber` varchar(255) NOT NULL DEFAULT '-',
+  `prove` tinyint(4) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `doctors`
 --
 
-INSERT INTO `doctors` (`ID`, `DocName`, `DocEmail`, `DocPassword`, `DocPhone`, `DocGender`, `DocAge`, `DocSpec`, `DocClinic`, `DocCountry`, `DocImageSrc`, `Online`, `RegDate`) VALUES
-(6, 'محمد النكلاوي', 'dr1@1.com', '123', '1254663', 'male', 47, 'اخصائي باطنة', 'الزوايدة نمرة 2 عمارة قهوة السلطنة', 'Alexandria', 'imgs/doc/d1.jpg', 'No', '2021-08-19'),
-(7, 'سارة عبدالسلام', 'dr2@1.com', '123', '25456423', 'Female', 27, 'الاسنان', 'المعمورة شارع 5 اما مسجد القيامة عمارة 7 شقة 3', 'Alexandria', 'imgs/doc/d3.jpg', 'No', '2021-08-19');
+INSERT INTO `doctors` (`ID`, `DocName`, `DocEmail`, `DocPassword`, `DocPhone`, `DocGender`, `DocAge`, `DocSpec`, `DocClinic`, `DocCountry`, `DocImageSrc`, `Online`, `RegDate`, `qualification`, `Permit`, `nNumber`, `prove`) VALUES
+(6, 'محمد النكلاوي', 'ahmedalnhas12@gmail.com', '123', '0024847', 'male', 47, 'dsafdsew', 'zbrse', 'Alexandria', 'alessio-lin-uAT2pqC01kY-unsplash.jpg', 'No', '2021-08-19', ' ', '', '', 0),
+(7, 'سارة عبدالسلام', 'dsfaadf', '123', 'dfsadfas', 'Female', 27, '-', 'dasfasdf', 'Alexandria', 'bogdan-pasca-ePW8U7EoF54-unsplash.jpg', 'No', '2021-08-19', ' ', '', '', 0);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `feedback`
+--
+
+CREATE TABLE `feedback` (
+  `Name` varchar(50) NOT NULL,
+  `email` varchar(50) NOT NULL,
+  `feedback` varchar(255) NOT NULL,
+  `Regdate` date DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `feedback`
+--
+
+INSERT INTO `feedback` (`Name`, `email`, `feedback`, `Regdate`) VALUES
+('Ahmed Elnhas', 'ahme@g.com', 'hi this masage form page', NULL),
+('Ahmed ', 'ahme@g.com', 'hi this is second massage from page after add regdate', '2021-08-22'),
+('Ahmed ', 'ahme@g.com', 'hi this is second massage from page after add regdate', '2021-08-22'),
+('Ahmed ', 'ahme@g.com', 'hi this is second massage from page after add regdate', '2021-08-22'),
+('Ahmed ', 'ahme@g.com', 'hi this is second massage from page after add regdate', '2021-08-22'),
+('Ahmed ', 'ahme@g.com', 'hi this is second massage from page after add regdate', '2021-08-22'),
+('Ahmed ', 'ahme@g.com', 'hi this is second massage from page after add regdate', '2021-08-22'),
+('Ahmed ', 'ahme@g.com', 'hi this is second massage from page after add regdate', '2021-08-22'),
+('mohamed', 'mohamed@g.com', 'asdnhvcxihhxzcihzxcjvbuhdsa', '2021-08-22'),
+('Digne', 'Dign@gmail.com', 'adsfsdafssdafsdafsdaf', '2021-08-22'),
+('migure', 'daf@dsaf.com', 'dasgagdsdsga', '2021-08-22');
 
 -- --------------------------------------------------------
 
