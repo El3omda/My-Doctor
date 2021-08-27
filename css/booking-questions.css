@@ -1,0 +1,234 @@
+/* Start Booking */
+.booking,.question {
+  margin: 20px;
+  background-color: #fff;
+  color: #0c4a7d;
+  padding: 50px;
+  border-radius: 5px;
+  font-family: cairo,arial;
+}
+.booking table,.question table {
+  width: 100%;
+  direction: rtl;
+}
+.booking table td ,
+.booking table th ,
+.question table td ,
+.question table th {
+  border: 1px solid #55c0a2;
+  text-align: center;
+} 
+.booking .head,.question .head {
+  text-align: center;
+  font-size: 20px;
+  font-weight: bold;
+  padding: 20px 0;
+  position: relative;
+}
+.booking .head:after,.question .head:after {
+  content: "";
+  width: 50px;
+  height: 4px;
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #55c0a2;
+}
+
+.booking .doctor-filter,.question .doctor-filter {
+  direction: rtl;
+  overflow: hidden;
+  background-color: #f6fbff;
+  padding: 50px 10px;
+  margin-top: 20px;
+  border-radius: 5px;
+}
+
+.booking .doctor-filter div:first-of-type,.question .doctor-filter div:first-of-type{
+  width: 25%;
+  float: right;
+}
+.booking .doctor-filter div:nth-of-type(2),.question .doctor-filter div:nth-of-type(2) {
+  width: 25%;
+  float: right;
+  margin-right: 20px;
+}
+.booking .doctor-filter div:nth-of-type(3),.question .doctor-filter div:nth-of-type(3) {
+  width: 25%;
+  float: right;
+  margin-right: 20px;
+}
+.booking .doctor-filter div:nth-of-type(4),.question .doctor-filter div:nth-of-type(4) {
+  width: 15%;
+  float: right;
+  margin-right: 20px;
+}
+
+.booking .doctor-filter div input:not(input[type="submit"]),.question .doctor-filter div input:not(input[type="submit"]) {
+  border-radius: 5px;
+  transition: all .3s;
+}
+
+.booking .doctor-filter div input:not(input[type="submit"]):focus,.question .doctor-filter div input:not(input[type="submit"]):focus {
+  border: 1px solid #55c0a2;
+}
+
+.booking .doctor-filter div:nth-of-type(4) input,.question .doctor-filter div:nth-of-type(4) input {
+  margin-top: 30px;
+  width: 100%;
+  cursor: pointer;
+  background-color: #55c0a2;
+  color: #fff;
+  font-size: 18px;
+  font-family: cairo,arial;
+  font-weight: bold;
+  border: 1px solid #55c0a2;
+  border-radius: 5px;
+  transition: all .3s;
+}
+.booking .doctor-filter div:nth-of-type(4) input:hover,.question .doctor-filter div:nth-of-type(4) input:hover {
+  background-color: transparent;
+  color: #55c0a2;
+}
+
+.booking .doctor-filter input,.question .doctor-filter input {
+  height: 35px;
+  outline: none;
+  border: 1px solid #0c4a7d;
+}
+
+.booking .box,.question .box {
+  width: calc((100% / 3) - 40px);
+  float: right;
+  background-color: #f6fbff;
+  padding: 10px;
+  border-radius: 5px;
+  direction: rtl;
+  margin-right: 20px;
+}
+
+.booking .box img,.question .box img {
+  width: 100%;
+  height: 200px;
+  border-radius: 5px;
+}
+.booking .box .spe,.question .box .spe {
+  font-size: 14px;
+}
+.booking .box .place,.question .box .place {
+  font-size: 15px;
+}
+
+.booking .box .btn a,.question .box .btn a {
+  display: block;
+  direction: ltr;
+  background-color: #55c0a2;
+  color: #fff;
+  padding: 5px 0;
+  text-align: center;
+  text-decoration: none;
+  font-size: 18px;
+  font-weight: bold;
+  transition: all .3s;
+  border: 1px solid #55c0a2;
+  border-radius: 5px;
+  margin-top: 10px;
+}
+
+.booking .box .btn a:hover,.question .box .btn a:hover {
+  background-color: transparent;
+  color: #55c0a2;
+}
+
+.booking .box .btn a i,.question .box .btn a i {
+  font-size: 20px;
+  margin-right: 5px;
+}
+
+.doc-result {
+  overflow: hidden;
+}
+
+/* End Booking */
+
+
+/* Start Questions */
+
+.com-cont .doc-info {
+  overflow: hidden;
+}
+.com-cont .doc-info > div {
+  width: 48%;
+  height: 300px;
+  float: right;
+}
+.com-cont .doc-info .doc-img {
+  text-align: left;
+}
+.com-cont .doc-info .doc-img img {
+  width: 60%;
+  height: 100%;
+}
+
+.chat-box {
+  overflow: hidden;
+  padding: 50px 20px;
+}
+
+.chat-box .send-chat {
+  overflow: hidden;
+}
+
+.chat-box .send-chat label {
+  display: block;
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+.chat-box .send-chat textarea {
+  width: 96%;
+  height: 200px;
+  resize: none;
+  outline: none;
+  border: 1px solid #0c4a7d;
+  border-radius: 5px;
+  padding-right: 10px;
+  padding-top: 10px;
+  font-size: 20px;
+  font-family: cairo,arial;
+  transition: all .3s;
+}
+.chat-box .send-chat textarea:focus {
+  border: 1px solid #55c0a2;
+}
+
+.patient-question {
+  width: 48%;
+  float: right;
+}
+.additional-info {
+  width: 48%;
+  float: left;
+}
+.send input {
+  width: 100%;
+  padding: 5px 0;
+  font-size: 20px;
+  font-family: cairo,arial;
+  color: #fff;
+  font-weight: bold;
+  background-color: #55c0a2;
+  border: 1px solid #55c0a2;
+  transition: all .4s;
+  outline: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 20px;
+}
+.send input:hover {
+  background-color: transparent;
+  color: #55c0a2;
+}
+
+/* End Questions */

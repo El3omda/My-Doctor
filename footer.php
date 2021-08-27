@@ -15,7 +15,7 @@
     </ul>
   </div>
   <div class="follow">
-    <p class="headmain"><span class="head1">تابعنا</span> على مواقع التواصل الاجتماعي</p>
+    <p class="headmain"><span class="head">تابعنا</span> على مواقع التواصل الاجتماعي</p>
     <ul>
       <li><i class="fa fa-linkedin fa-fw"></i></li>
       <li><i class="fa fa-twitter fa-fw"></i></li>

@@ -1,6 +1,5 @@
 <?php
-include "config.php";
-session_start();
+require_once 'config.php';
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -9,125 +8,110 @@ session_start();
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>الصفحه الرئسيه</title>
+    <title>طبيبي || الصفحة الرئيسية</title>
+    <link rel="stylesheet" href="css/splide.min.css">
     <link rel="stylesheet" href="css/index.css">
+
 </head>
 
 <body>
     <?php include "nav.php"; ?>
+
+    <!-- Start About -->
+
     <section class="about">
-        <div class="img">
-            <img src="imgs/doctor-clinic-illustration_1270-69.jpg" alt="">
+
+        <div class="image">
+
+            <img src="imgs/index.jpg" alt="">
+            <div class="circle"></div>
         </div>
-        <div class="contant">
-            <div class="logo">
-                <p><span>My</span>Doctor</p>
-                <img src="imgs/logo.png" alt="">
-                <p>دكتور<span>ي</span></p>
+
+        <div class="info">
+
+            <div class="top">
+                <span class="ar">طبيبي</span>
+                <span class="icon">
+                    <img src="imgs/ico.png" alt="">
+                </span>
+                <span class="en"><span>MY</span>DOCTOR</span>
             </div>
-            <h3>إحجز طبيبك المختص بكل سهولة!</h3>
-            <p>احصل على استشارة الطبية من أكثر الأطباء خبرة وموثوقية
-                لدينا حتي تتمكن ن الحصول على الإجابات والثقة في اتخاذ
-                قرارات واضحة بشأن صحةك
-            </p>
-            <div class="boxTriangle">
-                <div class="triangleLeft">
-                    <div class="empty"></div>
-                </div>
-                <div class="triangleRight">
-                    <div class="empty"></div>
-                </div>
+
+            <div class="center">
+                إﺣﺠﺰ ﻃﺒﻴﺒﻚ اﻟﻤﺨﺘﺺ ﺑﻜﻞ ﺳﻬﻮﻟﺔ !
             </div>
+
+            <div class="bottom">
+                اﺣﺼﻞ ﻋﻠﻰ الاستشارة اﻟﻄﺒﻴﺔ ﻣﻦ أﻛﺜﺮ اﻷﻃﺒﺎء ﺧﺒﺮة وﻣﻮﺛﻮﻗﻴﺔ ﻟﺪﻳﻨﺎ ﺣﺘﻲ ﺗﺘﻤﻜﻦ من اﻟﺤﺼﻮل ﻋﻠﻰ اﻹﺟﺎﺑﺎت واﻟﺜﻘﺔ ﻓﻲ اﺗﺨﺎذ ﻗﺮارات واﺿﺤﺔ ﺑﺸﺄن صحتك
+
+            </div>
+
         </div>
+
     </section>
-    <section class="Book">
-        <div class="slide">
-            <span class="active">حجز موعد</span>
-            <span> استشارة طبية</span>
-            <span> خدمات أخرى </span>
+
+    <!-- End About -->
+
+    <!-- Start Min Service -->
+
+    <section class="min-service">
+
+        <div class="btn-box">
+            <ul>
+                <li id="book" class="active">حجز موعد</li>
+                <li id="question">استشارة طبية</li>
+            </ul>
         </div>
-        <form action="" class="boxForm one ">
-            <div class="input">
-                <div class="row">
-                    <label for="">التخصص</label>
-                    <select name="" id="">
-                        <option value="">اسنان</option>
-                    </select>
+
+        <div class="box1" id="bx1">
+            <form action="" method="POST">
+                <div class="input-feild">
+                    <label>التخصص</label>
+                    <input type="text" name="Spec">
                 </div>
-                <div class="row">
-                    <label for="">التخصص</label>
-                    <select name="" id="">
-                        <option value="">اسنان</option>
-                    </select>
+                <div class="input-feild">
+                    <label>العنوان</label>
+                    <input type="text" name="Address">
                 </div>
-                <div class="row">
-                    <label for="">التخصص</label>
-                    <select name="" id="">
-                        <option value="">اسنان</option>
-                    </select>
+                <div class="input-feild">
+                    <label>الطبيب</label>
+                    <input type="text" name="DocName">
                 </div>
-            </div>
-            <div class="submit">
-                <input type="submit" value="في دكتور؟؟">
-            </div>
-        </form>
-        <form action="" class="boxForm two">
-            <div class="input">
-                <div class="row">
-                    <label for="">التخصص</label>
-                    <select name="" id="">
-                        <option value="">علوم</option>
-                    </select>
+                <div class="submit">
+                    <input type="submit" value="في دكتور ؟!">
                 </div>
-                <div class="row">
-                    <label for="">التخصص</label>
-                    <select name="" id="">
-                        <option value="">نساء </option>
-                    </select>
+            </form>
+        </div>
+
+        <div class="box1" id="bx2">
+            <form action="" method="POST">
+                <div class="input-feild">
+                    <label>التخصص</label>
+                    <input type="text" name="Spec">
                 </div>
-                <div class="row">
-                    <label for="">التخصص</label>
-                    <select name="" id="">
-                        <option value="">اسنان</option>
-                    </select>
+                <div class="input-feild">
+                    <label>العنوان</label>
+                    <input type="text" name="Address">
                 </div>
-            </div>
-            <div class="submit">
-                <input type="submit" value="في دكتور؟؟">
-            </div>
-        </form>
-        <form action="" class="boxForm three">
-            <div class="input">
-                <div class="row">
-                    <label for="">التخصص</label>
-                    <select name="" id="">
-                        <option value="">بطنه</option>
-                    </select>
+                <div class="input-feild">
+                    <label>الطبيب</label>
+                    <input type="text" name="DocName">
                 </div>
-                <div class="row">
-                    <label for="">التخصص</label>
-                    <select name="" id="">
-                        <option value="">قلب مفتوح</option>
-                    </select>
+                <div class="submit">
+                    <input type="submit" value="طلب استشارة ؟!">
                 </div>
-                <div class="row">
-                    <label for="">التخصص</label>
-                    <select name="" id="">
-                        <option value="">اسنان</option>
-                    </select>
-                </div>
-            </div>
-            <div class="submit">
-                <input type="submit" value="في دكتور؟؟">
-            </div>
-        </form>
+            </form>
+        </div>
+
     </section>
+
+    <!-- End Min Service -->
 
     <!-- Start Our Services -->
 
     <div class="our-services">
 
-        <p class="head"><span>خدماتنا</span></p>
+        <p class="head1"><span>خدماتنا</span></p>
 
         <div class="box">
 
@@ -142,7 +126,7 @@ session_start();
             </div>
 
             <div class="left">
-                <a href="#"><i class="fa fa-angle-left"></i></a>
+                <a href="booking.php"><i class="fa fa-angle-left"></i></a>
             </div>
 
         </div>
@@ -160,7 +144,7 @@ session_start();
             </div>
 
             <div class="left">
-                <a href="#"><i class="fa fa-angle-left"></i></a>
+                <a href="question.php"><i class="fa fa-angle-left"></i></a>
             </div>
 
         </div>
@@ -169,8 +153,85 @@ session_start();
 
     <!-- End Our Services -->
 
+    <!-- Start Offers -->
+
+    <section class="offers">
+
+        <div class="controls">
+            <div class="next">
+                <svg xmlns="http://www.w3.org/2000/svg" width="44" height="44" style="transform: rotate(90deg);">
+                    <path stroke="none" fill="#20be86" d="M13.339745962156 8.1843013959279a10 10 0 0 1 17.320508075689 0l10.179491924311 17.631397208144a10 10 0 0 1 -8.6602540378444 15l-20.358983848622 0a10 10 0 0 1 -8.6602540378444 -15"></path>
+                </svg>
+            </div>
+            <div class="head1"><span>عروض</span> في دكتور</div>
+            <div class="prev">
+                <svg xmlns="http://www.w3.org/2000/svg" width="44" height="44" style="transform: rotate(-90deg);">
+                    <path stroke="none" fill="#20be86" d="M13.339745962156 8.1843013959279a10 10 0 0 1 17.320508075689 0l10.179491924311 17.631397208144a10 10 0 0 1 -8.6602540378444 15l-20.358983848622 0a10 10 0 0 1 -8.6602540378444 -15"></path>
+                </svg>
+            </div>
+        </div>
+        <div class="splide" id="splide">
+            <div class="splide__slider">
+                <div class="splide__track">
+                    <ul class="splide__list">
+
+
+                        <?php
+
+                        // Get Offers
+
+                        $sqlGO = "SELECT * FROM offers WHERE OffAvaliable = 'Yes'";
+                        $resultGO = mysqli_query($conn, $sqlGO);
+
+                        if ($resultGO->num_rows > 0) {
+
+                            while ($rowGO = $resultGO->fetch_assoc()) {
+
+                                echo '
+                                <li class="splide__slide movie-cover">
+                                    <div class="box">
+                                        <div class="image">
+                                            <img src="' . $rowGO['OffImageSrc'] . '" alt="">
+                                        </div>
+                                        <div class="info">
+                                            <div class="datails">
+                                                <p class="name">' . $rowGO['OffName'] . '</p>
+                                                <p class="price"><span class="new">' . $rowGO['OffNPrice'] . '</span>EGP | <span class="old">' . $rowGO['OffOPrice'] . '</span>EGP</p>
+                                            </div>
+                                            <div class="show-more">
+                                                <a href="order.php?id=' . $rowGO['ID'] . '"><i class="fa fa-angle-left"></i></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                                ';
+                            }
+                        } else {
+                            echo '
+                                <p class="head1">لا يوجد عروض متاحة في الوقت الحالي</p>
+                            ';
+                        }
+
+                        ?>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+    </section>
+
+    <section>
+
+    </section>
+
+    <!-- End Offers -->
+
     <?php include "footer.php" ?>
-    <script src='main.js'></script>
+
+    <script src="js/jquery.main.js"></script>
+
+    <script src="js/splide.min.js"></script>
+    <script src="js/main.js"></script>
 </body>
 
 </html>

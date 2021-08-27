@@ -1,32 +1,35 @@
 body{
     margin: 0;
     padding: 0;
-    background: azure;
+    background: #f6fbff;
     box-sizing: border-box;
+    font-family: cairo,arial;
 }
 h1{
     text-align: center;
     margin: 20px 0;
-    font-size: 30px;
-    position: relative;
+    font-size: 24px;
     font-weight: 700;
-    color: #1a3e5b;
+    color: #0c4a7d;
 }
- h1::after{
+h1 span {
+    position: relative;
+}
+ h1 span::after{
     content: "";
-    width: 40px;
-    height: 40px;
+    width: 38px;
+    height: 38px;
     position: absolute;
-    border: 2px solid #55c0a2;
+    border: 3px solid #55c0a2;
     border-radius: 50%;
-    top: -8px;
-    right: 44%;
+    top: -2px;
+    right: -9px;
 }
-p{
+p.inf{
     padding: 0 7%;
     text-align: center;
-    line-height: 1.4;
-    color: #bfbfbf;
+    line-height: 1.6;
+    color: #333;
 }
 .container{
     width: 80%;
@@ -57,22 +60,25 @@ p{
     width: 48%;
 }
 .inputRow div input  {
-    background-color: azure;
+    background-color: #f6fbff;
     border: 0;
     outline: 0;
-    height: 30px;
+    height: 35px;
     padding: 0 15px;
     margin-bottom: 15px;
+    border: 1px solid #CCC;
+    border-radius: 5px;
+
 }
 .inputRow div label{
     margin-bottom: 10px;
 }
 .inputRow div h3 {
     margin: 20px 0;
-    font-size: 25px;
+    font-size: 22px;
     position: relative;
     font-weight: 700;
-    color: #1a3e5b;
+    color: #0c4a7d;
     width: 200px;
 }
 .imgRow{
@@ -81,19 +87,26 @@ p{
 .imgRow div{
     width: 86%;
     height: 90%;
-    background-color: azure;
+    background-color: #f6fbff;
     margin-top: 10px;
     position: relative;
+    border: 1px solid #CCC;
+    border-radius: 5px;
+    text-align: center;
+    line-height: 300px;
 }
 .imgRow input{
     visibility: hidden;
 }
 .imgRow div label{
-    position: absolute;
-    top: 50%;
     width: 100%;
-    text-align: center;
-
+    height: 100%;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    position: absolute;
+    cursor: pointer;
 }
 .inputFile{
     display: flex;
@@ -104,7 +117,7 @@ p{
   width: 30%;   
 }
 .inputFile div .fileBox{
-    background-color: azure;
+    background-color: #f6fbff;
     border: 0;
     outline: 0;
     width: 75%;
@@ -121,6 +134,7 @@ p{
     position: absolute;
     top: 10px;
     left: 16px;
+    cursor: pointer;
 }
 .btn{
     width: 96%;
@@ -134,7 +148,9 @@ p{
     outline: 0;
     background-color: #55c0a2;
     color: #fff;
+    font-weight: bold;
     cursor: pointer;
+    font-family: cairo,arial;
 }
 @media (max-width:1180px) {
     .box{
@@ -143,7 +159,7 @@ p{
     .imgRow div{
         height: 300px;
         margin-bottom: 10px;
-        width: 100%;
+    width: 100%;
     }
     .inputRow div ,.inputFile div{
         width: 100%;

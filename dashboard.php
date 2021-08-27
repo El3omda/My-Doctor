@@ -237,8 +237,8 @@ if ($_SERVER['QUERY_STRING'] == "De=" . $Del) {
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>الصفحة الرئيسية</title>
+  <link rel="stylesheet" href="css/font-awesome.min.css">
   <link rel="stylesheet" href="css/dashboard.css">
-  <script src="https://use.fontawesome.com/4e1b597fe9.js"></script>
 </head>
 
 <body>
@@ -499,7 +499,7 @@ if ($_SERVER['QUERY_STRING'] == "De=" . $Del) {
                   <p class="price"><span class="new">' . $rowOffD['OffNPrice'] . '</span>EGP | <span class="old">' . $rowOffD['OffOPrice'] . '</span>EGP</p>
                 </div>
                 <div class="show-more">
-                  <a href="#"><i class="fa fa-angle-left"></i></a>
+                  <a href="order.php?id=' . $rowOffD['ID'] . '"><i class="fa fa-angle-left"></i></a>
                 </div>
               </div>
             </div>
@@ -532,7 +532,7 @@ if ($_SERVER['QUERY_STRING'] == "De=" . $Del) {
                   <p class="price"><span class="new">' . $rowOffD['OffNPrice'] . '</span>EGP | <span class="old">' . $rowOffD['OffOPrice'] . '</span>EGP</p>
                 </div>
                 <div class="show-more">
-                  <a href="#"><i class="fa fa-angle-left"></i></a>
+                  <a href="order.php?id=' . $rowOffD['ID'] . '"><i class="fa fa-angle-left"></i></a>
                 </div>
               </div>
             </div>
@@ -673,7 +673,7 @@ if ($_SERVER['QUERY_STRING'] == "De=" . $Del) {
                 <p class="name">' . $rowDD['DocName'] . '</p>
                 <p class="spe">' . $rowDD['DocSpec'] . '</p>
                 <div class="btn">
-                  <a href="#"><i class="fa fa-angle-left"></i> حجز موعد</a>
+                  <a href="compelete.php?id=' . $rowDD['ID'] . '"><i class="fa fa-angle-left"></i> حجز موعد</a>
                 </div>
               </div>
                 ';
@@ -824,6 +824,39 @@ if ($_SERVER['QUERY_STRING'] == "De=" . $Del) {
   if ($_SESSION['AcountType'] == 'Patient') {
     echo '
     <div class="question">
+    ';
+
+    // Get USer OLD Questions
+    $patientName = $rowUD['UserName'];
+    $sqlGUOQ = "SELECT * FROM questions WHERE SendFrom = '$patientName'";
+    $resultGUOQ = mysqli_query($conn, $sqlGUOQ);
+
+    if ($resultGUOQ->num_rows > 0) {
+      echo '
+      <div class="old-questions">
+    <p class="head">استشاراتك السابقة</p>
+    <table style="margin:30px 0;">
+      <tr>
+        <th>السؤال</th>
+        <th>الطبيب</th>
+        <th>التاريخ</th>
+        <th>الاجابة</th>
+      </tr>
+    ';
+      while ($rowGUOQ = $resultGUOQ->fetch_assoc()) {
+        echo '
+          <tr>
+            <td>' . $rowGUOQ['Question'] . '</td>
+            <td>' . $rowGUOQ['SendTo'] . '</td>
+            <td>' . $rowGUOQ['DateCreated'] . '</td>
+            <td><a href="showQues.php?id=' . $rowGUOQ['ID'] . '">عرض</a></td>
+          </tr>
+        ';
+      }
+    }
+    echo '
+      </table>
+    </div>
       <p class="head">استشارة طبيب</p>
         <form class="doctor-filter" action="' . $_SERVER['PHP_SELF'] . '?P=Question' . '" method="POST">
           
@@ -862,7 +895,7 @@ if ($_SERVER['QUERY_STRING'] == "De=" . $Del) {
         <p class="name">' . $rowDD1['DocName'] . '</p>
         <p class="spe">' . $rowDD1['DocSpec'] . '</p>
         <div class="btn">
-          <a href="#"><i class="fa fa-angle-left"></i> استشارة</a>
+          <a href="compelete2.php?id=' . $rowDD1['ID'] . '"><i class="fa fa-angle-left"></i> استشارة</a>
         </div>
       </div>
     ';
@@ -1047,7 +1080,7 @@ if ($_SERVER['QUERY_STRING'] == "De=" . $Del) {
 
   </div>
 
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="js/jquery.main.js"></script>
   <script>
     $('nav ul li').click(function() {
       $(this).addClass('active').siblings().removeClass('active');

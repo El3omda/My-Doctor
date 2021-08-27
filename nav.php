@@ -1,9 +1,4 @@
-<?php
-
-
-
-?>
-<script src="https://use.fontawesome.com/4e1b597fe9.js"></script>
+<link rel="stylesheet" href="css/font-awesome.min.css">
 <link rel="stylesheet" href="css/fixed.css">
 <nav>
   <div class="bars">
@@ -12,10 +7,10 @@
     <span class="shorter"></span>
   </div>
   <ul>
-    <li><a href="#">خدماتنا</a></li>
-    <li><a href="#">الاطباء</a></li>
+    <li><a href="index.php">الرئيسية</a></li>
+    <li><a href="info-doctor.php">طبيب</a></li>
     <li><a href="about-us.php">من نحن</a></li>
-    <li><a href="#">تواصل معنا</a></li>
+    <li><a href="contact-us.php">تواصل معنا</a></li>
     <li><a href="my-acount.php">حسابي</a></li>
   </ul>
   <div class="logo">
@@ -27,14 +22,14 @@
     <i class="fa fa-times"></i>
   </div>
   <ul>
-    <li><a href="#">خدماتنا</a></li>
-    <li><a href="#">الاطباء</a></li>
-    <li><a href="#">من نحن</a></li>
-    <li><a href="#">تواصل معنا</a></li>
+    <li><a href="index.php">الرئيسية</a></li>
+    <li><a href="info-doctor.php">طبيب</a></li>
+    <li><a href="about-us.php">من نحن</a></li>
+    <li><a href="contact-us.php">تواصل معنا</a></li>
     <li><a href="my-acount.php">حسابي</a></li>
   </ul>
 </div>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="js/jquery.main.js"></script>
 <script>
   $('.bars').click(function() {
     $('.sd-nav').fadeToggle()

@@ -1,0 +1,229 @@
+/* Start Main */
+
+body {
+  background-color: #f6fbff;
+  font-family: cairo,arial;
+  color: #0c4a7d;
+}
+
+/* End Main */
+/* Start Cont */
+
+.off-cont {
+  width: 95%;
+  margin: 50px auto;
+  overflow: hidden;
+}
+
+.head {
+  height: 400px;
+  text-align: center;
+  overflow: hidden;
+}
+.head img {
+  height: 315px;
+  border: 1px solid #CCC;
+  border-radius: 10px;
+}
+.head h1 {
+  text-align: center;
+  position: relative;
+}
+.head h1:after {
+  content: "";
+  width: 60px;
+  height: 5px;
+  border-radius: 10px;
+  background-color: #55c0a2;
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.main {
+  min-height: 300px;
+  overflow: hidden;
+}
+
+.main .price {
+  list-style: none;
+  margin: 50px auto;
+  width: 250px;
+  text-align: center;
+}
+.main .price li {
+  display: inline-block;
+  font-weight: bold;
+  width: 100px;
+  font-size: 30px;
+}
+.main .price li:first-of-type {
+  color: Red;
+  text-decoration: line-through;
+  position: relative;
+}
+.main .price li:first-of-type::after {
+  content: "";
+  width: 4px;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  right: 0;
+  background-color: #0c4a7d;
+  border-radius: 30px;
+}
+
+.main .price li:last-of-type {
+  color: #55c0a2;
+}
+
+.main .details {
+  background-color: #fff;
+  text-align: center;
+  padding: 50px 0;
+  border-radius: 15px;
+  border: 1px solid #CCC;
+  font-size: 20px;
+}
+
+.main .details span {
+  display: block;
+  margin: 20px 0;
+  padding: 10px 0;
+  background-color: #55c0a2;
+  font-weight: bold;
+  color: #FFF;
+}
+
+.submit {
+   margin-top: 50px;
+}
+
+.submit a {
+  display: block;
+  width: 150px;
+  font-size: 20px;
+  color: #fff;
+  border: 1px solid #55c0a2;
+  background-color: #55c0a2;
+  border-radius: 5px;
+  text-decoration: none;
+  font-weight: bold;
+  margin: 10px auto;
+  transition: all .4s;
+  text-align: center;
+  padding: 10px 0;
+}
+.submit a:hover {
+  background-color: transparent;
+  color: #55c0a2;
+}
+
+/* End Cont */
+
+/* Start Compelete Order */
+
+.com-cont {
+  background-color: #fff;
+  width: 80%;
+  margin: 50px auto;
+  padding: 50px;
+  border-radius: 15px;
+  border: 1px solid #CCC;
+  direction: rtl;
+}
+.com-cont .order-info {
+  text-align: right;
+  font-size: 18px;
+}
+
+.com-cont .order-info p {
+  font-weight: normal;
+}
+.com-cont .order-info p span {
+  font-weight: bold;
+}
+.patient-info {
+  width: 60%;
+  margin: 50px auto;
+  padding: 50px 20px;
+  text-align: center;
+  border: 1px solid #CCC;
+  border-radius: 10px;
+}
+.patient-info form .input-feild {
+  margin: 10px 0;
+}
+.patient-info form {
+  width: 100%;
+}
+.patient-info form label {
+  display: block;
+  font-size: 17px;
+  font-weight: bold;
+}
+
+.patient-info form .input-feild input,select {
+  width: 70%;
+  height: 35px;
+  outline: none;
+  border-radius: 5px;
+  border: 1px solid #55c0a2;
+  font-weight: bold;
+  color: #333;
+  text-align: center;
+  font-family: cairo,arial;
+}
+.patient-info form .input-feild input[type="submit"] {
+  font-size: 18px;
+  font-weight: bold;
+  font-family: cairo,arial;
+  color: #fff;
+  background-color: #55c0a2;
+  margin-top: 10px;
+  cursor: pointer;
+  transition: all .3s;
+  border: 1px solid #55c0a2;
+}
+.patient-info form .input-feild input[type="submit"]:hover {
+  background-color: transparent;
+  color: #55c0a2;
+}
+.sec {
+  text-align: center;
+  background-color: #55c0a2;
+  color: #FFF;
+  padding: 10px 0;
+  font-weight: bold;
+  font-size: 18px;
+  margin: 10px 0;
+  border-radius: 5px;
+}
+
+.register {
+  width: 90%;
+  margin: auto;
+  text-align: center;
+  padding: 15px;
+  background-color: #0c4a7d;
+  color: #FFF;
+  position: absolute;
+  top: 90px;
+  left: 50%;
+  transform: translateX(-50%);
+  border-radius: 5px;
+}
+.register a {
+  color: #55c0a2;
+  font-weight: bold;
+  text-decoration: none;
+}
+.register i {
+  position: absolute;
+  right: 5px;
+  top: 5px;
+  font-size: 20px;
+  cursor: pointer;
+}
+/* End Compelete Order */
