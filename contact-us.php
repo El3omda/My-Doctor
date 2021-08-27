@@ -2,7 +2,12 @@
 include "config.php";
 session_start();
 if ($_SERVER['REQUEST_METHOD']=='POST'){
- echo $_POST['userName'];
+ $name =   $_POST['userName'];
+ $email =  $_POST['userEmail'];
+ $msg = $_POST ['massage'];
+ $sql = "INSERT INTO feedback(`name`, `email`, `feedback`,`Regdate`) VALUE ('$name', '$email','$msg' , now())";
+ $result = mysqli_query($conn,$sql);
+ header("Location:index.php");
 }
 ?>
 <!DOCTYPE html>
